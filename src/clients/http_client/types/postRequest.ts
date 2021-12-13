@@ -14,16 +14,13 @@ export type Token = number;
 export type FulfillmentOrderId = number;
 export type FulfillmentId = number;
 
+
 export type PostPaths =
   | {
       /** Creates a new storefront access token  */
       path: `storefront_access_tokens`;
       body: {
-        storefront_access_token: Omit<
-          StorefrontAccessToken,
-          "admin_graphql_api_id" | "id" | "access_token" | "access_scope" | "created_at" | "title"
-        > &
-          Required<Pick<StorefrontAccessToken, "title">>;
+        storefront_access_token: Omit<StorefrontAccessToken, "admin_graphql_api_id" | "id" | "access_token" | "access_scope" | "created_at" | "title"> & Required<Pick<StorefrontAccessToken, "title">>;
       };
       response: {
         storefront_access_token: StorefrontAccessToken;
@@ -89,20 +86,7 @@ export type PostPaths =
       /** Creates a customer.  */
       path: `customers`;
       body: {
-        customer: Omit<
-          Customer,
-          | "admin_graphql_api_id"
-          | "currency"
-          | "created_at"
-          | "default_address"
-          | "last_order_id"
-          | "last_order_name"
-          | "orders_count"
-          | "state"
-          | "total_spent"
-          | "updated_at"
-          | "verified_email"
-        >;
+        customer: Omit<Customer, "admin_graphql_api_id" | "currency" | "created_at" | "default_address" | "last_order_id" | "last_order_name" | "orders_count" | "state" | "total_spent" | "updated_at" | "verified_email">;
       };
       response: {
         customer: Customer;
@@ -140,10 +124,7 @@ export type PostPaths =
       /** Creates a customer saved search.  */
       path: `customer_saved_searches`;
       body: {
-        customer_saved_search: Omit<
-          CustomerSavedSearch,
-          "admin_graphql_api_id" | "created_at" | "id" | "updated_at"
-        >;
+        customer_saved_search: Omit<CustomerSavedSearch, "admin_graphql_api_id" | "created_at" | "id" | "updated_at">;
       };
       response: {
         customer_saved_search: CustomerSavedSearch;
@@ -153,17 +134,7 @@ export type PostPaths =
       /** Creates a discount code  */
       path: `price_rules/${PriceRuleId}/discount_codes`;
       body: {
-        discount_code: Omit<
-          DiscountCode,
-          | "admin_graphql_api_id"
-          | "created_at"
-          | "updated_at"
-          | "id"
-          | "price_rule_id"
-          | "usage_count"
-          | "code"
-        > &
-          Required<Pick<DiscountCode, "code">>;
+        discount_code: Omit<DiscountCode, "admin_graphql_api_id" | "created_at" | "updated_at" | "id" | "price_rule_id" | "usage_count" | "code"> & Required<Pick<DiscountCode, "code">>;
       };
       response: {
         discount_code: DiscountCode;
@@ -188,17 +159,7 @@ export type PostPaths =
         */
       path: `price_rules/${PriceRuleId}/batch`;
       body: {
-        discount_codes: Omit<
-          DiscountCode,
-          | "admin_graphql_api_id"
-          | "created_at"
-          | "updated_at"
-          | "id"
-          | "price_rule_id"
-          | "usage_count"
-          | "code"
-        > &
-          Required<Pick<DiscountCode, "code">>;
+        discount_codes: Omit<DiscountCode, "admin_graphql_api_id" | "created_at" | "updated_at" | "id" | "price_rule_id" | "usage_count" | "code"> & Required<Pick<DiscountCode, "code">>;
       };
       response: {
         discount_code_creation: DiscountCodeCreation;
@@ -218,17 +179,7 @@ export type PostPaths =
       /** Create a new webhook subscription by specifying both an address and a topic.Amazon EventBridge and Google Pub/Sub webhook subscriptions use this field differently.For more information, refer to the Amazon EventBridgeand Google Cloud Pub/Sub pages.  */
       path: `webhooks`;
       body: {
-        webhook: Omit<
-          Webhook,
-          | "admin_graphql_api_id"
-          | "api_version"
-          | "created_at"
-          | "id"
-          | "updated_at"
-          | "address"
-          | "topic"
-        > &
-          Required<Pick<Webhook, "address" | "topic">>;
+        webhook: Omit<Webhook, "admin_graphql_api_id" | "api_version" | "created_at" | "id" | "updated_at" | "address" | "topic"> & Required<Pick<Webhook, "address" | "topic">>;
       };
       response: {
         webhook: Webhook;
@@ -304,13 +255,7 @@ export type PostPaths =
       /** Creates a marketing event  */
       path: `marketing_events`;
       body: {
-        marketing_event: Omit<
-          MarketingEvent,
-          "admin_graphql_api_id" | "event_type" | "marketing_channel" | "paid" | "started_at"
-        > &
-          Required<
-            Pick<MarketingEvent, "event_type" | "marketing_channel" | "paid" | "started_at">
-          >;
+        marketing_event: Omit<MarketingEvent, "admin_graphql_api_id" | "event_type" | "marketing_channel" | "paid" | "started_at"> & Required<Pick<MarketingEvent, "event_type" | "marketing_channel" | "paid" | "started_at">>;
       };
       response: {
         marketing_event: MarketingEvent;
@@ -351,17 +296,7 @@ export type PostPaths =
       /** Creates a new metafield for a resource.  */
       path: `metafields`;
       body: {
-        metafield: Omit<
-          Metafield,
-          | "admin_graphql_api_id"
-          | "created_at"
-          | "updated_at"
-          | "id"
-          | "key"
-          | "namespace"
-          | "value"
-        > &
-          Required<Pick<Metafield, "key" | "namespace" | "value">>;
+        metafield: Omit<Metafield, "admin_graphql_api_id" | "created_at" | "updated_at" | "id" | "key" | "namespace" | "value"> & Required<Pick<Metafield, "key" | "namespace" | "value">>;
       };
       response: {
         metafield: Metafield;
@@ -371,10 +306,7 @@ export type PostPaths =
       /** Creates an article for a blog  */
       path: `blogs/${BlogId}/articles`;
       body: {
-        article: Omit<
-          Article,
-          "admin_graphql_api_id" | "created_at" | "id" | "updated_at" | "user_id"
-        >;
+        article: Omit<Article, "admin_graphql_api_id" | "created_at" | "id" | "updated_at" | "user_id">;
       };
       response: {
         article: Article;
@@ -394,10 +326,7 @@ export type PostPaths =
       /** Creates a comment for an article  */
       path: `comments`;
       body: {
-        comment: Omit<
-          Comment,
-          "admin_graphql_api_id" | "created_at" | "id" | "status" | "updated_at"
-        >;
+        comment: Omit<Comment, "admin_graphql_api_id" | "created_at" | "id" | "status" | "updated_at">;
       };
       response: {
         comment: Comment;
@@ -523,11 +452,7 @@ export type PostPaths =
       /** Creates a new script tag  */
       path: `script_tags`;
       body: {
-        script_tag: Omit<
-          ScriptTag,
-          "admin_graphql_api_id" | "created_at" | "id" | "updated_at" | "event" | "src"
-        > &
-          Required<Pick<ScriptTag, "event" | "src">>;
+        script_tag: Omit<ScriptTag, "admin_graphql_api_id" | "created_at" | "id" | "updated_at" | "event" | "src"> & Required<Pick<ScriptTag, "event" | "src">>;
       };
       response: {
         script_tag: ScriptTag;
@@ -540,16 +465,7 @@ export type PostPaths =
       of its files have been extracted and stored by Shopify, which might take a couple of minutes.  */
       path: `themes`;
       body: {
-        theme: Omit<
-          Theme,
-          | "admin_graphql_api_id"
-          | "created_at"
-          | "id"
-          | "previewable"
-          | "processing"
-          | "theme_store_id"
-          | "updated_at"
-        >;
+        theme: Omit<Theme, "admin_graphql_api_id" | "created_at" | "id" | "previewable" | "processing" | "theme_store_id" | "updated_at">;
       };
       response: {
         theme: Theme;
@@ -651,46 +567,7 @@ export type PostPaths =
         */
       path: `orders`;
       body: {
-        order: Omit<
-          Order,
-          | "admin_graphql_api_id"
-          | "app_id"
-          | "browser_ip"
-          | "cancelled_at"
-          | "cart_token"
-          | "checkout_token"
-          | "client_details"
-          | "closed_at"
-          | "created_at"
-          | "currency"
-          | "current_total_discounts"
-          | "current_total_discounts_set"
-          | "current_total_duties_set"
-          | "current_total_price"
-          | "current_total_price_set"
-          | "current_subtotal_price"
-          | "current_subtotal_price_set"
-          | "current_total_tax"
-          | "current_total_tax_set"
-          | "customer_locale"
-          | "discount_applications"
-          | "id"
-          | "landing_site"
-          | "number"
-          | "order_number"
-          | "original_total_duties_set"
-          | "payment_terms"
-          | "payment_gateway_names"
-          | "processing_method"
-          | "refunds"
-          | "test"
-          | "token"
-          | "total_tip_received"
-          | "updated_at"
-          | "order_status_url"
-          | "line_items"
-        > &
-          Required<Pick<Order, "line_items">>;
+        order: Omit<Order, "admin_graphql_api_id" | "app_id" | "browser_ip" | "cancelled_at" | "cart_token" | "checkout_token" | "client_details" | "closed_at" | "created_at" | "currency" | "current_total_discounts" | "current_total_discounts_set" | "current_total_duties_set" | "current_total_price" | "current_total_price_set" | "current_subtotal_price" | "current_subtotal_price_set" | "current_total_tax" | "current_total_tax_set" | "customer_locale" | "discount_applications" | "id" | "landing_site" | "number" | "order_number" | "original_total_duties_set" | "payment_terms" | "payment_gateway_names" | "processing_method" | "refunds" | "test" | "token" | "total_tip_received" | "updated_at" | "order_status_url" | "line_items"> & Required<Pick<Order, "line_items">>;
       };
       response: {
         order: Order;
@@ -711,7 +588,7 @@ export type PostPaths =
       };
     }
   | {
-      /**
+      /** 
       Caution
       For multi-currency orders, the currency property is required whenever the amount property is provided. For more information, see Migrating to support multiple currencies.
       Cancels an order. Orders that are paid and have fulfillments can't be canceled.  */
@@ -751,7 +628,7 @@ export type PostPaths =
       };
     }
   | {
-      /**
+      /** 
       Caution
       For multi-currency orders, the currency property is required whenever the amount property is provided. For more information, see Migrating to support multiple currencies.
       Creates a refund. Use the calculate endpoint to produce the transactions to submit.
@@ -778,17 +655,14 @@ export type PostPaths =
         transactions?: string;
       };
       body: {
-        refund: Omit<
-          Refund,
-          "admin_graphql_api_id" | "created_at" | "duties" | "id" | "order_adjustments"
-        >;
+        refund: Omit<Refund, "admin_graphql_api_id" | "created_at" | "duties" | "id" | "order_adjustments">;
       };
       response: {
         refund: Refund;
       };
     }
   | {
-      /**
+      /** 
       Caution
       For multi-currency orders, the currency property is required whenever the amount property is provided. For more information, see Migrating to support multiple currencies.
       Calculates refund transactions based on line items and shipping. When you want to create a refund,
@@ -808,17 +682,14 @@ export type PostPaths =
         shipping?: string;
       };
       body: {
-        refund: Omit<
-          Refund,
-          "admin_graphql_api_id" | "created_at" | "duties" | "id" | "order_adjustments"
-        >;
+        refund: Omit<Refund, "admin_graphql_api_id" | "created_at" | "duties" | "id" | "order_adjustments">;
       };
       response: {
         refund: Refund;
       };
     }
   | {
-      /**
+      /** 
       Caution
       For multi-currency orders, the currency property is required when creating refund and capture transactions. The value should be the presentment currency from the order. For more information, see Migrating to support multiple currencies.
       Creates a transaction for an order.  */
@@ -828,21 +699,7 @@ export type PostPaths =
         source?: string;
       };
       body: {
-        transaction: Omit<
-          Transaction,
-          | "admin_graphql_api_id"
-          | "created_at"
-          | "device_id"
-          | "error_code"
-          | "id"
-          | "location_id"
-          | "message"
-          | "payment_details"
-          | "receipt"
-          | "source_name"
-          | "kind"
-        > &
-          Required<Pick<Transaction, "kind">>;
+        transaction: Omit<Transaction, "admin_graphql_api_id" | "created_at" | "device_id" | "error_code" | "id" | "location_id" | "message" | "payment_details" | "receipt" | "source_name" | "kind"> & Required<Pick<Transaction, "kind">>;
       };
       response: {
         transaction: Transaction;
@@ -882,16 +739,7 @@ export type PostPaths =
       /** Creates a custom collection  */
       path: `custom_collections`;
       body: {
-        custom_collection: Omit<
-          CustomCollection,
-          | "admin_graphql_api_id"
-          | "id"
-          | "published_at"
-          | "published_scope"
-          | "updated_at"
-          | "title"
-        > &
-          Required<Pick<CustomCollection, "title">>;
+        custom_collection: Omit<CustomCollection, "admin_graphql_api_id" | "id" | "published_at" | "published_scope" | "updated_at" | "title"> & Required<Pick<CustomCollection, "title">>;
       };
       response: {
         custom_collection: CustomCollection;
@@ -901,11 +749,7 @@ export type PostPaths =
       /** Create a new product.  */
       path: `products`;
       body: {
-        product: Omit<
-          Product,
-          "admin_graphql_api_id" | "created_at" | "id" | "updated_at" | "title"
-        > &
-          Required<Pick<Product, "title">>;
+        product: Omit<Product, "admin_graphql_api_id" | "created_at" | "id" | "updated_at" | "title"> & Required<Pick<Product, "title">>;
       };
       response: {
         product: Product;
@@ -925,14 +769,7 @@ export type PostPaths =
       /** Creates a new product variant  */
       path: `products/${ProductId}/variants`;
       body: {
-        variant: Omit<
-          Variant,
-          | "admin_graphql_api_id"
-          | "inventory_quantity"
-          | "presentment_prices"
-          | "position"
-          | "title"
-        >;
+        variant: Omit<Variant, "admin_graphql_api_id" | "inventory_quantity" | "presentment_prices" | "position" | "title">;
       };
       response: {
         variant: Variant;
@@ -942,11 +779,7 @@ export type PostPaths =
       /** Creates a new smart collection using the specified rules.  */
       path: `smart_collections`;
       body: {
-        smart_collection: Omit<
-          Collection,
-          "admin_graphql_api_id" | "updated_at" | "rules" | "title"
-        > &
-          Required<Pick<Collection, "rules" | "title">>;
+        smart_collection: Omit<Collection, "admin_graphql_api_id" | "updated_at" | "rules" | "title"> & Required<Pick<Collection, "rules" | "title">>;
       };
       response: {
         smart_collection: Collection;
@@ -956,28 +789,7 @@ export type PostPaths =
       /** Creates a checkout  */
       path: `checkouts`;
       body: {
-        checkout: Omit<
-          Checkout,
-          | "admin_graphql_api_id"
-          | "created_at"
-          | "currency"
-          | "order"
-          | "payment_due"
-          | "payment_url"
-          | "requires_shipping"
-          | "shipping_rate"
-          | "subtotal_price"
-          | "tax_lines"
-          | "taxes_included"
-          | "token"
-          | "total_price"
-          | "total_tax"
-          | "updated_at"
-          | "web_url"
-          | "billing_address"
-          | "line_items"
-        > &
-          Required<Pick<Checkout, "billing_address" | "line_items">>;
+        checkout: Omit<Checkout, "admin_graphql_api_id" | "created_at" | "currency" | "order" | "payment_due" | "payment_url" | "requires_shipping" | "shipping_rate" | "subtotal_price" | "tax_lines" | "taxes_included" | "token" | "total_price" | "total_tax" | "updated_at" | "web_url" | "billing_address" | "line_items"> & Required<Pick<Checkout, "billing_address" | "line_items">>;
       };
       response: {
         checkout: Checkout;
@@ -1066,10 +878,7 @@ export type PostPaths =
         state?: string;
       };
       body: {
-        resource_feedback: Omit<
-          ResourceFeedback,
-          "admin_graphql_api_id" | "created_at" | "updated_at" | "resource_id" | "resource_type"
-        >;
+        resource_feedback: Omit<ResourceFeedback, "admin_graphql_api_id" | "created_at" | "updated_at" | "resource_id" | "resource_type">;
       };
       response: {
         resource_feedback: ResourceFeedback;
@@ -1364,7 +1173,7 @@ export type PostPaths =
       };
     }
   | {
-      /**
+      /** 
       Caution
       As of version 2020-10, the tax field is deprecated.
       Creates a country.  */
@@ -1375,4 +1184,4 @@ export type PostPaths =
       response: {
         country: Country;
       };
-    };
+    }

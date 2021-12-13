@@ -13,10 +13,10 @@ export enum DataType {
   URLEncoded = 'application/x-www-form-urlencoded', // eslint-disable-line @shopify/typescript/prefer-pascal-case-enums
 }
 
-export interface GetRequestParams<T = string, D = unknown> {
+export interface GetRequestParams<T, D> {
   path: T;
   type?: DataType;
-  data?: D extends { body: any; } ? D['body'] : Record<string, unknown> | string;
+  data?: D extends { body: any; } ? D['body'] : Record<string, string | number>;
   query?: D extends { query: any; } ? D['query'] : Record<string, string | number>;
   extraHeaders?: HeaderParams;
   tries?: number;
@@ -35,23 +35,20 @@ export type RequestParams = (GetRequestParams | PostRequestParams) & {
   method: Method;
 };
 
-export interface RequestReturn<T = unknown> {
-  body: T extends { response: any; } ? T['response'] : unknown;
+export interface RequestReturn<P, T> {
+  body: T extends { response: any; path: P; } ? T['response'] : unknown;
   headers: Headers;
 }
 
 type GetPathModel =
   | {
   path: 'product';
-  query: { product: 'asd'; };
+  query: { product?: 'asd'; };
   response: { product: string; };
 }
   | {
-  path: 'product/count';
-  response: { count: { number: number; }; };
-}
-  | {
   path: `product/${number}`;
+  query: { product?: '123123'; };
   response: { special: number; };
 };
 
@@ -67,7 +64,7 @@ type PostPathModel =
   response: { count: { number: number; }; };
 }
   | {
-  path: `product/${number}.json`;
+  path: `product/${number}`;
   response: { special: number; };
 };
 type PutPathModel =
@@ -101,30 +98,29 @@ type DeletePathModel =
   response: { special: number; };
 };
 
-type GetPathType = PostPathModel['path'];
+type GetPathType = GetPathModel['path'];
+type GetPathType2 = GetPaths['path'];
 type PostPathType = PostPathModel['path'];
 type PutPathType = PutPathModel['path'];
 type DeletePathType = DeletePathModel['path'];
 
 
-export type GetRequest = <T extends GetPathType>(
+export type GetRequest = <T extends GetPathModel['path']>(
   params: GetRequestParams<T, ExtractPath<GetPathModel, T>>
-) => Promise<RequestReturn<ExtractPath<GetPathModel, T>>>;
+) => Promise<RequestReturn<T, ExtractPath<GetPathModel, T>>>;
 
 export type PostRequest = <T extends PostPathType>(
   params: PostRequestParams<T, ExtractPath<PostPathModel, T>>
-) => Promise<RequestReturn<ExtractPath<PostPathModel, T>>>;
+) => Promise<RequestReturn<T, ExtractPath<PostPathModel, T>>>;
 
 export type PutRequest = <T extends PutPathType>(
   params: PutRequestParams<T, ExtractPath<PutPathModel, T>>
-) => Promise<RequestReturn<ExtractPath<PutPathModel, T>>>;
+) => Promise<RequestReturn<T, ExtractPath<PutPathModel, T>>>;
 
 export type DeleteRequest = <T extends DeletePathType>(
   params: DeleteRequestParams<T, ExtractPath<DeletePathModel, T>>
-) => Promise<RequestReturn<ExtractPath<DeletePathModel, T>>>;
+) => Promise<RequestReturn<T, ExtractPath<DeletePathModel, T>>>;
 
-type ExcludeTypeKey<K> = K extends 'path' ? never : K;
 
-type ExcludePathType<A> = { [K in ExcludeTypeKey<keyof A>]: A[K] };
+type ExtractPath<A, T> = A extends { path: T; } ? A : never;
 
-type ExtractPath<A, T> = A extends { path: T; } ? ExcludePathType<A> : never;

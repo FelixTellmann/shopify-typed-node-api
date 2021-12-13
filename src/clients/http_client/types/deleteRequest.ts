@@ -34,6 +34,7 @@ export type EventId = number;
 export type FulfillmentServiceId = number;
 export type CountryId = number;
 
+
 export type DeletePaths =
   | {
       /** Deletes an existing storefront access token  */
@@ -201,4 +202,4 @@ export type DeletePaths =
   | {
       /** Deletes a country.  */
       path: `countries/${CountryId}`;
-    };
+    }

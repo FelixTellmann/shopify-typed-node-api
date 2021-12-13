@@ -52,6 +52,7 @@ export type PayoutId = number;
 export type CountryId = number;
 export type ProvinceId = number;
 
+
 export type GetPaths =
   | {
       /** Retrieves a list of access scopes associated to the access token.  */
@@ -2233,4 +2234,4 @@ export type GetPaths =
       response: {
         tender_transactions: TenderTransaction;
       };
-    };
+    }

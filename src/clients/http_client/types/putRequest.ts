@@ -37,6 +37,7 @@ export type FulfillmentServiceId = number;
 export type CountryId = number;
 export type ProvinceId = number;
 
+
 export type PutPaths =
   | {
       /** Updates a report  */
@@ -59,20 +60,7 @@ export type PutPaths =
       /** Updates a customer.  */
       path: `customers/${CustomerId}`;
       body: {
-        customer: Omit<
-          Customer,
-          | "admin_graphql_api_id"
-          | "currency"
-          | "created_at"
-          | "default_address"
-          | "last_order_id"
-          | "last_order_name"
-          | "orders_count"
-          | "state"
-          | "total_spent"
-          | "updated_at"
-          | "verified_email"
-        >;
+        customer: Omit<Customer, "admin_graphql_api_id" | "currency" | "created_at" | "default_address" | "last_order_id" | "last_order_name" | "orders_count" | "state" | "total_spent" | "updated_at" | "verified_email">;
       };
       response: {
         customer: Customer;
@@ -109,10 +97,7 @@ export type PutPaths =
       /** Updates a customer saved search.  */
       path: `customer_saved_searches/${CustomerSavedSearchId}`;
       body: {
-        customer_saved_search: Omit<
-          CustomerSavedSearch,
-          "admin_graphql_api_id" | "created_at" | "id" | "updated_at"
-        >;
+        customer_saved_search: Omit<CustomerSavedSearch, "admin_graphql_api_id" | "created_at" | "id" | "updated_at">;
       };
       response: {
         customer_saved_search: CustomerSavedSearch;
@@ -122,17 +107,7 @@ export type PutPaths =
       /** Updates an existing discount code  */
       path: `price_rules/${PriceRuleId}/discount_codes/${DiscountCodeId}`;
       body: {
-        discount_code: Omit<
-          DiscountCode,
-          | "admin_graphql_api_id"
-          | "created_at"
-          | "updated_at"
-          | "id"
-          | "price_rule_id"
-          | "usage_count"
-          | "code"
-        > &
-          Required<Pick<DiscountCode, "code">>;
+        discount_code: Omit<DiscountCode, "admin_graphql_api_id" | "created_at" | "updated_at" | "id" | "price_rule_id" | "usage_count" | "code"> & Required<Pick<DiscountCode, "code">>;
       };
       response: {
         discount_code: DiscountCode;
@@ -152,17 +127,7 @@ export type PutPaths =
       /** Update a webhook subscription's topic or address URIs  */
       path: `webhooks/${WebhookId}`;
       body: {
-        webhook: Omit<
-          Webhook,
-          | "admin_graphql_api_id"
-          | "api_version"
-          | "created_at"
-          | "id"
-          | "updated_at"
-          | "address"
-          | "topic"
-        > &
-          Required<Pick<Webhook, "address" | "topic">>;
+        webhook: Omit<Webhook, "admin_graphql_api_id" | "api_version" | "created_at" | "id" | "updated_at" | "address" | "topic"> & Required<Pick<Webhook, "address" | "topic">>;
       };
       response: {
         webhook: Webhook;
@@ -172,10 +137,7 @@ export type PutPaths =
       /** Updates an existing inventory item  */
       path: `inventory_items/${InventoryItemId}`;
       body: {
-        inventory_item: Omit<
-          InventoryItem,
-          "admin_graphql_api_id" | "created_at" | "id" | "updated_at"
-        >;
+        inventory_item: Omit<InventoryItem, "admin_graphql_api_id" | "created_at" | "id" | "updated_at">;
       };
       response: {
         inventory_item: InventoryItem;
@@ -185,13 +147,7 @@ export type PutPaths =
       /** Updates a marketing event  */
       path: `marketing_events/${MarketingEventId}`;
       body: {
-        marketing_event: Omit<
-          MarketingEvent,
-          "admin_graphql_api_id" | "event_type" | "marketing_channel" | "paid" | "started_at"
-        > &
-          Required<
-            Pick<MarketingEvent, "event_type" | "marketing_channel" | "paid" | "started_at">
-          >;
+        marketing_event: Omit<MarketingEvent, "admin_graphql_api_id" | "event_type" | "marketing_channel" | "paid" | "started_at"> & Required<Pick<MarketingEvent, "event_type" | "marketing_channel" | "paid" | "started_at">>;
       };
       response: {
         marketing_event: MarketingEvent;
@@ -201,17 +157,7 @@ export type PutPaths =
       /** Updates a metafield.  */
       path: `metafields/${MetafieldId}`;
       body: {
-        metafield: Omit<
-          Metafield,
-          | "admin_graphql_api_id"
-          | "created_at"
-          | "updated_at"
-          | "id"
-          | "key"
-          | "namespace"
-          | "value"
-        > &
-          Required<Pick<Metafield, "key" | "namespace" | "value">>;
+        metafield: Omit<Metafield, "admin_graphql_api_id" | "created_at" | "updated_at" | "id" | "key" | "namespace" | "value"> & Required<Pick<Metafield, "key" | "namespace" | "value">>;
       };
       response: {
         metafield: Metafield;
@@ -221,10 +167,7 @@ export type PutPaths =
       /** Updates an article  */
       path: `blogs/${BlogId}/articles/${ArticleId}`;
       body: {
-        article: Omit<
-          Article,
-          "admin_graphql_api_id" | "created_at" | "id" | "updated_at" | "user_id"
-        >;
+        article: Omit<Article, "admin_graphql_api_id" | "created_at" | "id" | "updated_at" | "user_id">;
       };
       response: {
         article: Article;
@@ -241,17 +184,7 @@ export type PutPaths =
         src?: string;
       };
       body: {
-        asset: Omit<
-          Asset,
-          | "admin_graphql_api_id"
-          | "checksum"
-          | "content_type"
-          | "created_at"
-          | "public_url"
-          | "size"
-          | "theme_id"
-          | "updated_at"
-        >;
+        asset: Omit<Asset, "admin_graphql_api_id" | "checksum" | "content_type" | "created_at" | "public_url" | "size" | "theme_id" | "updated_at">;
       };
       response: {
         asset: Asset;
@@ -271,10 +204,7 @@ export type PutPaths =
       /** Updates a comment of an article  */
       path: `comments/${CommentId}`;
       body: {
-        comment: Omit<
-          Comment,
-          "admin_graphql_api_id" | "created_at" | "id" | "status" | "updated_at"
-        >;
+        comment: Omit<Comment, "admin_graphql_api_id" | "created_at" | "id" | "status" | "updated_at">;
       };
       response: {
         comment: Comment;
@@ -304,11 +234,7 @@ export type PutPaths =
       /** Updates a script tag  */
       path: `script_tags/${ScriptTagId}`;
       body: {
-        script_tag: Omit<
-          ScriptTag,
-          "admin_graphql_api_id" | "created_at" | "id" | "updated_at" | "event" | "src"
-        > &
-          Required<Pick<ScriptTag, "event" | "src">>;
+        script_tag: Omit<ScriptTag, "admin_graphql_api_id" | "created_at" | "id" | "updated_at" | "event" | "src"> & Required<Pick<ScriptTag, "event" | "src">>;
       };
       response: {
         script_tag: ScriptTag;
@@ -318,16 +244,7 @@ export type PutPaths =
       /** Updates an existing theme.  */
       path: `themes/${ThemeId}`;
       body: {
-        theme: Omit<
-          Theme,
-          | "admin_graphql_api_id"
-          | "created_at"
-          | "id"
-          | "previewable"
-          | "processing"
-          | "theme_store_id"
-          | "updated_at"
-        >;
+        theme: Omit<Theme, "admin_graphql_api_id" | "created_at" | "id" | "previewable" | "processing" | "theme_store_id" | "updated_at">;
       };
       response: {
         theme: Theme;
@@ -363,46 +280,7 @@ export type PutPaths =
       /** This operation allows for updating properties of an order including `buyer_accepts_marketing`, `email`, `phone`, `note`, `tags`, `metafields` and `shipping_address_attributes`. It is not for editing the items of an order.  */
       path: `orders/${OrderId}`;
       body: {
-        order: Omit<
-          Order,
-          | "admin_graphql_api_id"
-          | "app_id"
-          | "browser_ip"
-          | "cancelled_at"
-          | "cart_token"
-          | "checkout_token"
-          | "client_details"
-          | "closed_at"
-          | "created_at"
-          | "currency"
-          | "current_total_discounts"
-          | "current_total_discounts_set"
-          | "current_total_duties_set"
-          | "current_total_price"
-          | "current_total_price_set"
-          | "current_subtotal_price"
-          | "current_subtotal_price_set"
-          | "current_total_tax"
-          | "current_total_tax_set"
-          | "customer_locale"
-          | "discount_applications"
-          | "id"
-          | "landing_site"
-          | "number"
-          | "order_number"
-          | "original_total_duties_set"
-          | "payment_terms"
-          | "payment_gateway_names"
-          | "processing_method"
-          | "refunds"
-          | "test"
-          | "token"
-          | "total_tip_received"
-          | "updated_at"
-          | "order_status_url"
-          | "line_items"
-        > &
-          Required<Pick<Order, "line_items">>;
+        order: Omit<Order, "admin_graphql_api_id" | "app_id" | "browser_ip" | "cancelled_at" | "cart_token" | "checkout_token" | "client_details" | "closed_at" | "created_at" | "currency" | "current_total_discounts" | "current_total_discounts_set" | "current_total_duties_set" | "current_total_price" | "current_total_price_set" | "current_subtotal_price" | "current_subtotal_price_set" | "current_total_tax" | "current_total_tax_set" | "customer_locale" | "discount_applications" | "id" | "landing_site" | "number" | "order_number" | "original_total_duties_set" | "payment_terms" | "payment_gateway_names" | "processing_method" | "refunds" | "test" | "token" | "total_tip_received" | "updated_at" | "order_status_url" | "line_items"> & Required<Pick<Order, "line_items">>;
       };
       response: {
         order: Order;
@@ -436,16 +314,7 @@ export type PutPaths =
       /** Updates an existing custom collection  */
       path: `custom_collections/${CustomCollectionId}`;
       body: {
-        custom_collection: Omit<
-          CustomCollection,
-          | "admin_graphql_api_id"
-          | "id"
-          | "published_at"
-          | "published_scope"
-          | "updated_at"
-          | "title"
-        > &
-          Required<Pick<CustomCollection, "title">>;
+        custom_collection: Omit<CustomCollection, "admin_graphql_api_id" | "id" | "published_at" | "published_scope" | "updated_at" | "title"> & Required<Pick<CustomCollection, "title">>;
       };
       response: {
         custom_collection: CustomCollection;
@@ -455,11 +324,7 @@ export type PutPaths =
       /** Update a product.  */
       path: `products/${ProductId}`;
       body: {
-        product: Omit<
-          Product,
-          "admin_graphql_api_id" | "created_at" | "id" | "updated_at" | "title"
-        > &
-          Required<Pick<Product, "title">>;
+        product: Omit<Product, "admin_graphql_api_id" | "created_at" | "id" | "updated_at" | "title"> & Required<Pick<Product, "title">>;
       };
       response: {
         product: Product;
@@ -479,14 +344,7 @@ export type PutPaths =
       /** Updates an existing product variant  */
       path: `variants/${VariantId}`;
       body: {
-        variant: Omit<
-          Variant,
-          | "admin_graphql_api_id"
-          | "inventory_quantity"
-          | "presentment_prices"
-          | "position"
-          | "title"
-        >;
+        variant: Omit<Variant, "admin_graphql_api_id" | "inventory_quantity" | "presentment_prices" | "position" | "title">;
       };
       response: {
         variant: Variant;
@@ -496,11 +354,7 @@ export type PutPaths =
       /** Updates an existing smart collection  */
       path: `smart_collections/${SmartCollectionId}`;
       body: {
-        smart_collection: Omit<
-          Collection,
-          "admin_graphql_api_id" | "updated_at" | "rules" | "title"
-        > &
-          Required<Pick<Collection, "rules" | "title">>;
+        smart_collection: Omit<Collection, "admin_graphql_api_id" | "updated_at" | "rules" | "title"> & Required<Pick<Collection, "rules" | "title">>;
       };
       response: {
         smart_collection: Collection;
@@ -520,28 +374,7 @@ export type PutPaths =
       /** Modifies an existing checkout  */
       path: `checkouts/${Token}`;
       body: {
-        checkout: Omit<
-          Checkout,
-          | "admin_graphql_api_id"
-          | "created_at"
-          | "currency"
-          | "order"
-          | "payment_due"
-          | "payment_url"
-          | "requires_shipping"
-          | "shipping_rate"
-          | "subtotal_price"
-          | "tax_lines"
-          | "taxes_included"
-          | "token"
-          | "total_price"
-          | "total_tax"
-          | "updated_at"
-          | "web_url"
-          | "billing_address"
-          | "line_items"
-        > &
-          Required<Pick<Checkout, "billing_address" | "line_items">>;
+        checkout: Omit<Checkout, "admin_graphql_api_id" | "created_at" | "currency" | "order" | "payment_due" | "payment_url" | "requires_shipping" | "shipping_rate" | "subtotal_price" | "tax_lines" | "taxes_included" | "token" | "total_price" | "total_tax" | "updated_at" | "web_url" | "billing_address" | "line_items"> & Required<Pick<Checkout, "billing_address" | "line_items">>;
       };
       response: {
         checkout: Checkout;
@@ -551,19 +384,7 @@ export type PutPaths =
       /** Create a collection listing to publish a collection to your app  */
       path: `collection_listings/${CollectionListingId}`;
       body: {
-        collection_listing: Omit<
-          CollectionListing,
-          | "admin_graphql_api_id"
-          | "collection_id"
-          | "body_html"
-          | "default_product_image"
-          | "image"
-          | "handle"
-          | "published_at"
-          | "title"
-          | "sort_order"
-          | "updated_at"
-        >;
+        collection_listing: Omit<CollectionListing, "admin_graphql_api_id" | "collection_id" | "body_html" | "default_product_image" | "image" | "handle" | "published_at" | "title" | "sort_order" | "updated_at">;
       };
       response: {
         collection_listing: CollectionListing;
@@ -583,23 +404,7 @@ export type PutPaths =
       /** Create a product listing to publish a product to your app  */
       path: `product_listings/${ProductListingId}`;
       body: {
-        product_listing: Omit<
-          ProductListing,
-          | "admin_graphql_api_id"
-          | "product_id"
-          | "body_html"
-          | "created_at"
-          | "handle"
-          | "images"
-          | "options"
-          | "product_type"
-          | "published_at"
-          | "tags"
-          | "title"
-          | "updated_at"
-          | "variants"
-          | "vendor"
-        >;
+        product_listing: Omit<ProductListing, "admin_graphql_api_id" | "product_id" | "body_html" | "created_at" | "handle" | "images" | "options" | "product_type" | "published_at" | "tags" | "title" | "updated_at" | "variants" | "vendor">;
       };
       response: {
         product_listing: ProductListing;
@@ -635,7 +440,7 @@ export type PutPaths =
       };
     }
   | {
-      /**
+      /** 
       Caution
       As of version 2020-10, the tax field is deprecated.
       Updates an existing country.  */
@@ -648,7 +453,7 @@ export type PutPaths =
       };
     }
   | {
-      /**
+      /** 
       Caution
       As of version 2020-10, the tax field is deprecated.
       Updates an existing province for a country.  */
@@ -659,4 +464,4 @@ export type PutPaths =
       response: {
         province: Province;
       };
-    };
+    }
