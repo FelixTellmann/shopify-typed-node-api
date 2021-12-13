@@ -40,28 +40,88 @@ export interface RequestReturn<T = unknown> {
   headers: Headers;
 }
 
+type GetPathModel =
+  | {
+  path: 'product';
+  query: { product: 'asd'; };
+  response: { product: string; };
+}
+  | {
+  path: 'product/count';
+  response: { count: { number: number; }; };
+}
+  | {
+  path: `product/${number}`;
+  response: { special: number; };
+};
 
-type GetPathType = GetPaths['path'];
-type PostPathType = PostPaths['path'];
-type PutPathType = PutPaths['path'];
-type DeletePathType = DeletePaths['path'];
+type PostPathModel =
+  | {
+  path: 'product';
+  query: { product: 'asd'; };
+  response: { product: string; };
+  body: { product: string; };
+}
+  | {
+  path: 'product/count';
+  response: { count: { number: number; }; };
+}
+  | {
+  path: `product/${number}.json`;
+  response: { special: number; };
+};
+type PutPathModel =
+  | {
+  path: 'product';
+  query: { product: 'asd'; };
+  response: { product: string; };
+  body: { product: string; };
+}
+  | {
+  path: 'product/count';
+  response: { count: { number: number; }; };
+}
+  | {
+  path: `product/${number}`;
+  response: { special: number; };
+};
+type DeletePathModel =
+  | {
+  path: 'product';
+  query: { product: 'asd'; };
+  response: { product: string; };
+  body: { product: string; };
+}
+  | {
+  path: 'product/count';
+  response: { count: { number: number; }; };
+}
+  | {
+  path: `product/${number}`;
+  response: { special: number; };
+};
+
+type GetPathType = PostPathModel['path'];
+type PostPathType = PostPathModel['path'];
+type PutPathType = PutPathModel['path'];
+type DeletePathType = DeletePathModel['path'];
 
 
 export type GetRequest = <T extends GetPathType>(
-  params: GetRequestParams<T, ExtractPath<GetPaths, T>>
-) => Promise<RequestReturn<ExtractPath<GetPaths, T>>>;
+  params: GetRequestParams<T, ExtractPath<GetPathModel, T>>
+) => Promise<RequestReturn<ExtractPath<GetPathModel, T>>>;
 
 export type PostRequest = <T extends PostPathType>(
-  params: PostRequestParams<T, ExtractPath<PostPaths, T>>
-) => Promise<RequestReturn<ExtractPath<PostPaths, T>>>;
+  params: PostRequestParams<T, ExtractPath<PostPathModel, T>>
+) => Promise<RequestReturn<ExtractPath<PostPathModel, T>>>;
 
 export type PutRequest = <T extends PutPathType>(
-  params: PutRequestParams<T, ExtractPath<PutPaths, T>>
-) => Promise<RequestReturn<ExtractPath<PutPaths, T>>>;
+  params: PutRequestParams<T, ExtractPath<PutPathModel, T>>
+) => Promise<RequestReturn<ExtractPath<PutPathModel, T>>>;
 
 export type DeleteRequest = <T extends DeletePathType>(
-  params: DeleteRequestParams<T, ExtractPath<DeletePaths, T>>
-) => Promise<RequestReturn<ExtractPath<DeletePaths, T>>>;
+  params: DeleteRequestParams<T, ExtractPath<DeletePathModel, T>>
+) => Promise<RequestReturn<ExtractPath<DeletePathModel, T>>>;
 
 type ExcludeTypeKey<K> = K extends 'path' ? never : K;
 

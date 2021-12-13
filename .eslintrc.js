@@ -5,7 +5,7 @@ module.exports = {
   },
   plugins: ['@shopify'],
   extends: ['plugin:@shopify/typescript'],
-  ignorePatterns: ['dist/'],
+  ignorePatterns: ['dist/', 'src/clients/http_client/types'],
   rules: {
     'import/no-named-as-default': 0,
     'no-mixed-operators': 0,
