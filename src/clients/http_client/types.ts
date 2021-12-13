@@ -105,9 +105,9 @@ type PutPathType = PutPathModel['path'];
 type DeletePathType = DeletePathModel['path'];
 
 
-export type GetRequest = <T extends GetPathModel['path']>(
-  params: GetRequestParams<T, ExtractPath<GetPathModel, T>>
-) => Promise<RequestReturn<T, ExtractPath<GetPathModel, T>>>;
+export type GetRequest = <T extends GetPaths['path']>(
+  params: GetRequestParams<T, ExtractPath<GetPaths, T>>
+) => Promise<RequestReturn<T, ExtractPath<GetPaths, T>>>;
 
 export type PostRequest = <T extends PostPathType>(
   params: PostRequestParams<T, ExtractPath<PostPathModel, T>>
@@ -122,5 +122,5 @@ export type DeleteRequest = <T extends DeletePathType>(
 ) => Promise<RequestReturn<T, ExtractPath<DeletePathModel, T>>>;
 
 
-type ExtractPath<A, T> = A extends { path: T; } ? A : never;
+type ExtractPath<A, T> = [A] extends [{ path: T; }] ? A : never;
 
