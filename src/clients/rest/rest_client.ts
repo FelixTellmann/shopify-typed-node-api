@@ -1,14 +1,15 @@
 import querystring from 'querystring';
 
+import {TypedRestClient} from 'src/clients/rest/typed_rest_client';
+
 import {Context} from '../../context';
 import {ShopifyHeader} from '../../base_types';
-import {HttpClient} from '../http_client/http_client';
 import {RequestParams, GetRequestParams} from '../http_client/types';
 import * as ShopifyErrors from '../../error';
 
 import {RestRequestReturn, PageInfo} from './types';
 
-class RestClient extends HttpClient {
+class RestClient extends TypedRestClient {
   private static LINK_HEADER_REGEXP = /<([^<]+)>; rel="([^"]+)"/;
   private static DEFAULT_LIMIT = '50';
 
@@ -22,7 +23,7 @@ class RestClient extends HttpClient {
     }
   }
 
-  protected async request(params: RequestParams): Promise<RestRequestReturn> {
+  protected async request<T = unknown>(params: RequestParams): Promise<RestRequestReturn<T>> {
     params.extraHeaders = {
       [ShopifyHeader.AccessToken]: Context.IS_PRIVATE_APP
         ? Context.API_SECRET_KEY
@@ -32,7 +33,7 @@ class RestClient extends HttpClient {
 
     params.path = this.getRestPath(params.path);
 
-    const ret = (await super.request(params)) as RestRequestReturn;
+    const ret = (await super.request(params)) as RestRequestReturn<T>;
 
     const link = ret.headers.get('link');
     if (params.query && link !== undefined) {
