@@ -1,16 +1,36 @@
 import querystring from 'querystring';
 
-import {Context} from '../../context';
-import {ShopifyHeader} from '../../base_types';
-import {HttpClient} from '../http_client/http_client';
-import {RequestParams, GetRequestParams} from '../http_client/types';
-import * as ShopifyErrors from '../../error';
+import {Method} from '@shopify/network';
+import {Context} from 'src/context';
+import {ShopifyHeader} from 'src/base_types';
+import {HttpClient} from 'src/clients/http_client/http_client';
+import {
+  RequestParams,
+  DataType,
+  HeaderParams,
+} from 'src/clients/http_client/types';
+import * as ShopifyErrors from 'src/error';
+import {RestRequestReturn, PageInfo} from 'src/clients/rest/types';
 
-import {RestRequestReturn, PageInfo} from './types';
 
-class RestClient extends HttpClient {
+export interface Params<D = Record<string, unknown> | string, Q = Record<string, string | number>> {
+  path: string;
+  data?: D;
+  query?: Q;
+  extraHeaders?: HeaderParams;
+  tries?: number;
+  [T: string]: string | any;
+}
+
+class TypedRestClient extends HttpClient {
   private static LINK_HEADER_REGEXP = /<([^<]+)>; rel="([^"]+)"/;
   private static DEFAULT_LIMIT = '50';
+
+  Product: {
+
+    /** SUPER DUPER!*/
+    get: (params: (Omit<Params, 'path'>)) => Promise<RestRequestReturn<{ product: 'any;'; }>>;
+  };
 
   public constructor(domain: string, readonly accessToken?: string) {
     super(domain);
@@ -20,16 +40,24 @@ class RestClient extends HttpClient {
         'Missing access token when creating REST client',
       );
     }
+
+    this.Product = {
+      get: (params) => this.request({...params, path: 'products', type: DataType.JSON, method: Method.Get} as RequestParams),
+    };
   }
 
-  protected async request<T = unknown>(params: RequestParams): Promise<RestRequestReturn<T>> {
+  protected async request<T=unknown>(params: RequestParams): Promise<RestRequestReturn<T>> {
+    const typedParams = params as Params;
     params.extraHeaders = {
       [ShopifyHeader.AccessToken]: Context.IS_PRIVATE_APP
-        ? Context.API_SECRET_KEY
-        : (this.accessToken as string),
+                                   ? Context.API_SECRET_KEY
+                                   : (this.accessToken as string),
       ...params.extraHeaders,
     };
 
+    params.path = params.path.replace(/\${([^/\\]*)}/gi, (match) => {
+      return typedParams[match];
+    });
     params.path = this.getRestPath(params.path);
 
     const ret = (await super.request(params)) as RestRequestReturn<T>;
@@ -38,15 +66,15 @@ class RestClient extends HttpClient {
     if (params.query && link !== undefined) {
       const pageInfo: PageInfo = {
         limit: params.query.limit
-          ? params.query.limit.toString()
-          : RestClient.DEFAULT_LIMIT,
+               ? params.query.limit.toString()
+               : TypedRestClient.DEFAULT_LIMIT,
       };
 
       if (link) {
         const links = link.split(', ');
 
         for (const link of links) {
-          const parsedLink = link.match(RestClient.LINK_HEADER_REGEXP);
+          const parsedLink = link.match(TypedRestClient.LINK_HEADER_REGEXP);
           if (!parsedLink) {
             continue;
           }
@@ -85,7 +113,7 @@ class RestClient extends HttpClient {
     return `/admin/api/${Context.API_VERSION}/${path}.json`;
   }
 
-  private buildRequestParams(newPageUrl: string): GetRequestParams {
+  private buildRequestParams(newPageUrl: string): Params {
     const pattern = `^/admin/api/[^/]+/(.*).json$`;
 
     const url = new URL(newPageUrl);
@@ -100,4 +128,5 @@ class RestClient extends HttpClient {
   }
 }
 
-export {RestClient};
+export {TypedRestClient};
+

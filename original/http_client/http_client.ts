@@ -1,55 +1,30 @@
+import querystring, {ParsedUrlQueryInput} from 'querystring';
 import crypto from 'crypto';
 import fs from 'fs';
-import querystring, {ParsedUrlQueryInput} from 'querystring';
 
-import fetch, {Headers, RequestInit, Response} from 'node-fetch';
+import fetch, {RequestInit, Response} from 'node-fetch';
 import {Method, StatusCode} from '@shopify/network';
 
-import {Context} from '../../context';
 import * as ShopifyErrors from '../../error';
-import validateShop from '../../utils/shop-validator';
 import {SHOPIFY_API_LIBRARY_VERSION} from '../../version';
-import {DataType, HeaderParams} from '../http_client/types';
+import validateShop from '../../utils/shop-validator';
+import {Context} from '../../context';
 
-export interface GetRequestParams {
-  path: string;
-  type?: DataType;
-  data?: Record<string, unknown> | string;
-  query?: Record<string, string | number>;
-  extraHeaders?: HeaderParams;
-  tries?: number;
-}
+import {
+  DataType,
+  GetRequestParams,
+  PostRequestParams,
+  PutRequestParams,
+  DeleteRequestParams,
+  RequestParams,
+  RequestReturn,
+} from './types';
 
-export type PostRequestParams = GetRequestParams & {
-  type: DataType;
-  data: Record<string, unknown> | string;
-};
-
-export type PutRequestParams = PostRequestParams;
-
-export type DeleteRequestParams = GetRequestParams;
-
-export type RequestParams = (GetRequestParams | PostRequestParams) & {
-  method: Method;
-};
-
-export interface RequestReturn<T = unknown> {
-  body: T;
-  headers: Headers;
-}
-
-class TypedRestClient {
+class HttpClient {
   // 1 second
   static readonly RETRY_WAIT_TIME = 1000;
   // 5 minutes
   static readonly DEPRECATION_ALERT_DELAY = 300000;
-
-  public Product = {
-    get: (params: Omit<GetRequestParams, 'type' | 'path'> & { ProductId: number; }): Promise<RequestReturn<{product: any;}>> => {
-      return this.request({...params, path: 'products', type: DataType.JSON, method: Method.Get});
-    },
-  };
-
   private LOGGED_DEPRECATIONS: Record<string, number> = {};
 
   public constructor(private domain: string) {
@@ -88,7 +63,7 @@ class TypedRestClient {
     return this.request({method: Method.Delete, ...params});
   }
 
-  protected async request<T = unknown>(params: RequestParams): Promise<RequestReturn<T>> {
+  protected async request(params: RequestParams): Promise<RequestReturn> {
     const maxTries = params.tries ? params.tries : 1;
     if (maxTries <= 0) {
       throw new ShopifyErrors.HttpRequestError(
@@ -126,8 +101,8 @@ class TypedRestClient {
           case DataType.URLEncoded:
             body =
               typeof data === 'string'
-              ? data
-              : querystring.stringify(data as ParsedUrlQueryInput);
+                ? data
+                : querystring.stringify(data as ParsedUrlQueryInput);
             break;
           case DataType.GraphQL:
             body = data as string;
@@ -142,8 +117,8 @@ class TypedRestClient {
     }
 
     const queryString = params.query
-                        ? `?${querystring.stringify(params.query as ParsedUrlQueryInput)}`
-                        : '';
+      ? `?${querystring.stringify(params.query as ParsedUrlQueryInput)}`
+      : '';
 
     const url = `https://${this.domain}${params.path}${queryString}`;
     const options: RequestInit = {
@@ -165,7 +140,7 @@ class TypedRestClient {
         if (error instanceof ShopifyErrors.HttpRetriableError) {
           // We're not out of tries yet, use them
           if (tries < maxTries) {
-            let waitTime = TypedRestClient.RETRY_WAIT_TIME;
+            let waitTime = HttpClient.RETRY_WAIT_TIME;
             if (
               error instanceof ShopifyErrors.HttpThrottlingError &&
               error.retryAfter
@@ -196,10 +171,10 @@ class TypedRestClient {
     );
   }
 
-  private async doRequest<T = unknown>(
+  private async doRequest(
     url: string,
     options: RequestInit,
-  ): Promise<RequestReturn<T>> {
+  ): Promise<RequestReturn> {
     return fetch(url, options)
       .then(async (response: Response) => {
         const body = await response.json();
@@ -222,7 +197,7 @@ class TypedRestClient {
             if (
               !Object.keys(this.LOGGED_DEPRECATIONS).includes(depHash) ||
               Date.now() - this.LOGGED_DEPRECATIONS[depHash] >=
-              TypedRestClient.DEPRECATION_ALERT_DELAY
+                HttpClient.DEPRECATION_ALERT_DELAY
             ) {
               this.LOGGED_DEPRECATIONS[depHash] = Date.now();
 
@@ -259,8 +234,8 @@ class TypedRestClient {
           }
 
           const errorMessage = errorMessages.length
-                               ? `:\n${errorMessages.join('\n')}`
-                               : '';
+            ? `:\n${errorMessages.join('\n')}`
+            : '';
           switch (true) {
             case response.status === StatusCode.TooManyRequests: {
               const retryAfter = response.headers.get('Retry-After');
@@ -294,4 +269,4 @@ class TypedRestClient {
   }
 }
 
-export {TypedRestClient};
+export {HttpClient};

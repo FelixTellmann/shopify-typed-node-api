@@ -63,7 +63,7 @@ class HttpClient {
     return this.request({method: Method.Delete, ...params});
   }
 
-  protected async request(params: RequestParams): Promise<RequestReturn> {
+  protected async request<T = unknown>(params: RequestParams): Promise<RequestReturn<T>> {
     const maxTries = params.tries ? params.tries : 1;
     if (maxTries <= 0) {
       throw new ShopifyErrors.HttpRequestError(
@@ -134,7 +134,7 @@ class HttpClient {
     let tries = 0;
     while (tries < maxTries) {
       try {
-        return await this.doRequest(url, options);
+        return await this.doRequest<T>(url, options);
       } catch (error) {
         tries++;
         if (error instanceof ShopifyErrors.HttpRetriableError) {
@@ -171,10 +171,10 @@ class HttpClient {
     );
   }
 
-  private async doRequest(
+  private async doRequest<T = unknown>(
     url: string,
     options: RequestInit,
-  ): Promise<RequestReturn> {
+  ): Promise<RequestReturn<T>> {
     return fetch(url, options)
       .then(async (response: Response) => {
         const body = await response.json();

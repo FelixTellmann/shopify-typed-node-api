@@ -9,6 +9,6 @@ export interface PageInfo {
   nextPage?: GetRequestParams;
 }
 
-export type RestRequestReturn<T = unknown> = RequestReturn<T> & {
+export type RestRequestReturn = RequestReturn & {
   pageInfo?: PageInfo;
 };
