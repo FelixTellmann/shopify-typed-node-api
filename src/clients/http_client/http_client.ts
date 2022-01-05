@@ -12,12 +12,9 @@ import {Context} from '../../context';
 
 import {
   DataType,
-  GetRequestParams,
   PostRequestParams,
-  PutRequestParams,
-  DeleteRequestParams,
   RequestParams,
-  RequestReturn,
+  RequestReturn, GetRequest, PostRequest, DeleteRequest, PutRequest,
 } from './types';
 
 class HttpClient {
@@ -38,30 +35,30 @@ class HttpClient {
   /**
    * Performs a GET request on the given path.
    */
-  public async get(params: GetRequestParams): Promise<RequestReturn> {
+  public get: GetRequest = async (params) => {
     return this.request({method: Method.Get, ...params});
-  }
+  };
 
   /**
    * Performs a POST request on the given path.
    */
-  public async post(params: PostRequestParams): Promise<RequestReturn> {
+  public post: PostRequest = async (params) => {
     return this.request({method: Method.Post, ...params});
-  }
+  };
 
   /**
    * Performs a PUT request on the given path.
    */
-  public async put(params: PutRequestParams): Promise<RequestReturn> {
+  public put: PutRequest = async (params) => {
     return this.request({method: Method.Put, ...params});
-  }
+  };
 
   /**
    * Performs a DELETE request on the given path.
    */
-  public async delete(params: DeleteRequestParams): Promise<RequestReturn> {
+  public delete: DeleteRequest = async (params) => {
     return this.request({method: Method.Delete, ...params});
-  }
+  };
 
   protected async request<T = unknown>(params: RequestParams): Promise<RequestReturn<T>> {
     const maxTries = params.tries ? params.tries : 1;
@@ -101,8 +98,8 @@ class HttpClient {
           case DataType.URLEncoded:
             body =
               typeof data === 'string'
-                ? data
-                : querystring.stringify(data as ParsedUrlQueryInput);
+              ? data
+              : querystring.stringify(data as ParsedUrlQueryInput);
             break;
           case DataType.GraphQL:
             body = data as string;
@@ -116,9 +113,7 @@ class HttpClient {
       }
     }
 
-    const queryString = params.query
-      ? `?${querystring.stringify(params.query as ParsedUrlQueryInput)}`
-      : '';
+    const queryString = params.query ? `?${querystring.stringify(params.query as ParsedUrlQueryInput)}` : '';
 
     const url = `https://${this.domain}${params.path}${queryString}`;
     const options: RequestInit = {
@@ -134,7 +129,7 @@ class HttpClient {
     let tries = 0;
     while (tries < maxTries) {
       try {
-        return await this.doRequest<T>(url, options);
+        return await this.doRequest(url, options);
       } catch (error) {
         tries++;
         if (error instanceof ShopifyErrors.HttpRetriableError) {
@@ -171,7 +166,7 @@ class HttpClient {
     );
   }
 
-  private async doRequest<T = unknown>(
+  private async doRequest<T = {response: unknown;}>(
     url: string,
     options: RequestInit,
   ): Promise<RequestReturn<T>> {
@@ -197,7 +192,7 @@ class HttpClient {
             if (
               !Object.keys(this.LOGGED_DEPRECATIONS).includes(depHash) ||
               Date.now() - this.LOGGED_DEPRECATIONS[depHash] >=
-                HttpClient.DEPRECATION_ALERT_DELAY
+              HttpClient.DEPRECATION_ALERT_DELAY
             ) {
               this.LOGGED_DEPRECATIONS[depHash] = Date.now();
 
@@ -234,8 +229,8 @@ class HttpClient {
           }
 
           const errorMessage = errorMessages.length
-            ? `:\n${errorMessages.join('\n')}`
-            : '';
+                               ? `:\n${errorMessages.join('\n')}`
+                               : '';
           switch (true) {
             case response.status === StatusCode.TooManyRequests: {
               const retryAfter = response.headers.get('Retry-After');
