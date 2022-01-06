@@ -5,11 +5,10 @@ module.exports = {
   },
   plugins: ['@shopify'],
   extends: ['plugin:@shopify/typescript'],
-  ignorePatterns: ['dist/', 'src/clients/http_client/types'],
+  ignorePatterns: ['dist/', "src/clients/rest/dataTypes.ts"],
   rules: {
     'import/no-named-as-default': 0,
     'no-mixed-operators': 0,
     'no-console': 0,
   },
 };
-

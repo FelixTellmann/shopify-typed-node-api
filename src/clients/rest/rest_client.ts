@@ -22,23 +22,24 @@ class RestClient extends HttpClient {
     }
   }
 
-  protected async request<T = unknown>(params: RequestParams): Promise<RestRequestReturn<T>> {
-    params.extraHeaders = {
+  protected async request<T = unknown>(params: RequestParams<T>): Promise<RestRequestReturn<T>> {
+    const requestParams: RequestParams = params;
+    requestParams.extraHeaders = {
       [ShopifyHeader.AccessToken]: Context.IS_PRIVATE_APP
         ? Context.API_SECRET_KEY
         : (this.accessToken as string),
-      ...params.extraHeaders,
+      ...requestParams.extraHeaders,
     };
 
-    params.path = this.getRestPath(params.path);
+    requestParams.path = this.getRestPath(requestParams.path as string);
 
-    const ret = (await super.request(params)) as RestRequestReturn<T>;
+    const ret = (await super.request(requestParams)) as RestRequestReturn<T>;
 
     const link = ret.headers.get('link');
-    if (params.query && link !== undefined) {
+    if (requestParams.query && link !== undefined) {
       const pageInfo: PageInfo = {
-        limit: params.query.limit
-          ? params.query.limit.toString()
+        limit: requestParams.query.limit
+          ? requestParams.query.limit.toString()
           : RestClient.DEFAULT_LIMIT,
       };
 
