@@ -83,6 +83,15 @@ class RestClient extends HttpClient {
   }
 
   private getRestPath(path: string): string {
+    const isAdminPathRegexp = /^\/?admin\//gi.test(path);
+    const hasJsonEndingRegexp = /\.json$/gi.test(path);
+
+    if (isAdminPathRegexp && !hasJsonEndingRegexp) {
+      return `${path}.json`;
+    }
+    if (hasJsonEndingRegexp && isAdminPathRegexp) {
+      return path;
+    }
     return `/admin/api/${Context.API_VERSION}/${path}.json`;
   }
 
