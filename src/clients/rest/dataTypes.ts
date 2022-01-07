@@ -1,3 +1,5 @@
+import { Method } from "@shopify/network";
+
 export type _Blog = {
   /** A unique numeric identifier for the blog.  */
   id?: number;
@@ -3715,6 +3717,7 @@ export namespace AccessScope {
   /** Retrieves a list of access scopes associated with the access token.  */
   export type Get = {
     path: `/admin/oauth/access_scopes`;
+    method: Method.Get;
     response: {
       access_scopes: _AccessScope;
     };
@@ -3726,6 +3729,7 @@ export namespace StorefrontAccessToken {
   /** Creates a new storefront access token  */
   export type Create = {
     path: `storefront_access_tokens`;
+    method: Method.Post;
     body: {
       storefront_access_token: Omit<
         _StorefrontAccessToken,
@@ -3741,11 +3745,13 @@ export namespace StorefrontAccessToken {
   /** Deletes an existing storefront access token  */
   export type DeleteById = {
     path: `storefront_access_tokens/${StorefrontAccessTokenId}`;
+    method: Method.Delete;
   };
 
   /** Retrieves a list of storefront access tokens that have been issued  */
   export type Get = {
     path: `storefront_access_tokens`;
+    method: Method.Get;
     response: {
       storefront_access_tokens: _StorefrontAccessToken;
     };
@@ -3757,6 +3763,7 @@ export namespace Report {
   /** Creates a new report  */
   export type Create = {
     path: `reports`;
+    method: Method.Post;
     query: {
       /** The name of the report. Maximum length: 255 characters. */
       name?: string;
@@ -3774,6 +3781,7 @@ export namespace Report {
   /** Retrieves a single report created by your app  */
   export type GetById = {
     path: `reports/${ReportId}`;
+    method: Method.Get;
     query: {
       /** A comma-separated list of fields to include in the response. */
       fields?: string;
@@ -3786,6 +3794,7 @@ export namespace Report {
   /** Updates a report  */
   export type UpdateById = {
     path: `reports/${ReportId}`;
+    method: Method.Put;
     body: {
       report: Omit<_Report, "admin_graphql_api_id">;
     };
@@ -3793,15 +3802,10 @@ export namespace Report {
       report: _Report;
     };
   };
-
-  /** Deletes a report  */
-  export type DeleteById = {
-    path: `reports/${ReportId}`;
-  };
-
   /** Retrieves a list of reports. Note: As of version 2019-10, this endpoint implements pagination by using links that are provided in the response header. Sending the page parameter will return an error. To learn more, see Making requests to paginated REST Admin API endpoints.  */
   export type Get = {
     path: `reports`;
+    method: Method.Get;
     query: {
       /** A comma-separated list of fields to include in the response. */
       fields?: string;
@@ -3827,6 +3831,7 @@ export namespace ApplicationCharge {
   /** Creates an application charge  */
   export type Create = {
     path: `application_charges`;
+    method: Method.Post;
     body: {
       application_charge: Omit<_ApplicationCharge, "admin_graphql_api_id">;
     };
@@ -3838,6 +3843,7 @@ export namespace ApplicationCharge {
   /** Retrieves an application charge  */
   export type GetById = {
     path: `application_charges/${ApplicationChargeId}`;
+    method: Method.Get;
     query: {
       /** A comma-separated list of fields to include in the response. */
       fields?: string;
@@ -3850,6 +3856,7 @@ export namespace ApplicationCharge {
   /** Retrieves a list of application charges  */
   export type Get = {
     path: `application_charges`;
+    method: Method.Get;
     query: {
       /** A comma-separated list of fields to include in the response. */
       fields?: string;
@@ -3867,6 +3874,7 @@ export namespace ApplicationCredit {
   /** Creates an application credit  */
   export type Create = {
     path: `application_credits`;
+    method: Method.Post;
     body: {
       application_credit: Omit<_ApplicationCredit, "admin_graphql_api_id">;
     };
@@ -3878,6 +3886,7 @@ export namespace ApplicationCredit {
   /** Retrieves a single application credit  */
   export type GetById = {
     path: `application_credits/${ApplicationCreditId}`;
+    method: Method.Get;
     query: {
       /** A comma-separated list of fields to include in the response. */
       fields?: string;
@@ -3890,6 +3899,7 @@ export namespace ApplicationCredit {
   /** Retrieves all application credits  */
   export type Get = {
     path: `application_credits`;
+    method: Method.Get;
     query: {
       /** A comma-separated list of fields to include in the response. */
       fields?: string;
@@ -3905,6 +3915,7 @@ export namespace RecurringApplicationCharge {
   /** Creates a recurring application charge. Make sure to include a valid return_url property to ensure the merchant is redirected after accepting the charge (an invalid or missing return_url propertymay lead to unstable behaviour in the charge approval flow).  */
   export type Create = {
     path: `recurring_application_charges`;
+    method: Method.Post;
     body: {
       recurring_application_charge: Omit<_RecurringApplicationCharge, "admin_graphql_api_id">;
     };
@@ -3916,6 +3927,7 @@ export namespace RecurringApplicationCharge {
   /** Retrieves a single charge  */
   export type GetById = {
     path: `recurring_application_charges/${RecurringApplicationChargeId}`;
+    method: Method.Get;
     query: {
       /** A comma-separated list of fields to include in the response. */
       fields?: string;
@@ -3928,11 +3940,13 @@ export namespace RecurringApplicationCharge {
   /** Cancels a recurring application charge  */
   export type DeleteById = {
     path: `recurring_application_charges/${RecurringApplicationChargeId}`;
+    method: Method.Delete;
   };
 
   /** Updates the capped amount of an active recurring application charge. Note that you cannot use this endpoint to update  an [Annual subscription](https://shopify.dev/apps/billing/subscriptions/annual#limitations).  */
   export type UpdateById = {
     path: `recurring_application_charges/${RecurringApplicationChargeId}/customize`;
+    method: Method.Put;
     response: {
       recurring_application_charge: _RecurringApplicationCharge;
     };
@@ -3941,6 +3955,7 @@ export namespace RecurringApplicationCharge {
   /** Retrieves a list of recurring application charges  */
   export type Get = {
     path: `recurring_application_charges`;
+    method: Method.Get;
     query: {
       /** A comma-separated list of fields to include in the response. */
       fields?: string;
@@ -3958,6 +3973,7 @@ export namespace UsageCharge {
   /** Creates a usage charge  */
   export type Create = {
     path: `recurring_application_charges/${RecurringApplicationChargeId}/usage_charges`;
+    method: Method.Post;
     body: {
       usage_charge: Omit<_UsageCharge, "admin_graphql_api_id">;
     };
@@ -3969,6 +3985,7 @@ export namespace UsageCharge {
   /** Retrieves a single charge  */
   export type GetById = {
     path: `recurring_application_charges/${RecurringApplicationChargeId}/usage_charges/${UsageChargeId}`;
+    method: Method.Get;
     query: {
       /** A comma-separated list of fields to include in the response. */
       fields?: string;
@@ -3981,6 +3998,7 @@ export namespace UsageCharge {
   /** Retrieves a list of usage charges  */
   export type Get = {
     path: `recurring_application_charges/${RecurringApplicationChargeId}/usage_charges`;
+    method: Method.Get;
     query: {
       /** A comma-separated list of fields to include in the response. */
       fields?: string;
@@ -3996,6 +4014,7 @@ export namespace Customer {
   /** Creates a customer.  */
   export type Create = {
     path: `customers`;
+    method: Method.Post;
     body: {
       customer: Omit<
         _Customer,
@@ -4020,6 +4039,7 @@ export namespace Customer {
   /** Deletes a customer. A customer can't be deleted if they have existing orders.  */
   export type GetById = {
     path: `customers/${CustomerId}`;
+    method: Method.Get;
     response: {
       customer: _Customer;
     };
@@ -4028,6 +4048,7 @@ export namespace Customer {
   /** Updates a customer.  */
   export type UpdateById = {
     path: `customers/${CustomerId}`;
+    method: Method.Put;
     body: {
       customer: Omit<
         _Customer,
@@ -4053,6 +4074,7 @@ export namespace Customer {
    The account activation URL generated by this endpoint is for one-time use and will expire after 30 days. If you make a new POST request to this endpoint, then a new URL will be generated. The new URL will be again valid for 30 days, but the previous URL will no longer be valid.  */
   export type AccountActivationUrlById = {
     path: `customers/${CustomerId}/account_activation_url`;
+    method: Method.Post;
     response: {
       account_activation_url?: string;
     };
@@ -4061,6 +4083,7 @@ export namespace Customer {
   /** Sends an account invite to a customer.  */
   export type SendInviteById = {
     path: `customers/${CustomerId}/send_invite`;
+    method: Method.Post;
     body: {
       customer_invite: _CustomerInvite;
     };
@@ -4072,6 +4095,7 @@ export namespace Customer {
   /** Retrieves a count of all customers.  */
   export type Count = {
     path: `customers/count`;
+    method: Method.Get;
     response: {
       count?: number;
     };
@@ -4080,6 +4104,7 @@ export namespace Customer {
   /** Retrieves a list of customers. Note: As of version 2019-10, this endpoint implements pagination by using links that are provided in the response header. Sending the page parameter will return an error. To learn more, see Making requests to paginated REST Admin API endpoints.  */
   export type Get = {
     path: `customers`;
+    method: Method.Get;
     query: {
       /** Show customers created before a specified date.(format: 2014-04-25T16:15:47-04:00) */
       created_at_max?: string;
@@ -4106,6 +4131,7 @@ export namespace Customer {
   /** Searches for customers that match a supplied query. Note: As of version 2019-10, this endpoint implements pagination by using links that are provided in the response header. Sending the page parameter will return an error. To learn more, see Making requests to paginated REST Admin API endpoints.  */
   export type Search = {
     path: `customers/search`;
+    method: Method.Get;
     query: {
       /** Show only certain fields, specified by a comma-separated list of field names. */
       fields?: string;
@@ -4124,6 +4150,7 @@ export namespace Customer {
   /** Retrieves all open orders belonging to a customer. The query string parameters that are available to the  Order resource are also available to this endpoint.  */
   export type OrdersById = {
     path: `customers/${CustomerId}/orders`;
+    method: Method.Get;
     response: {
       orders: _Order;
     };
@@ -4135,6 +4162,7 @@ export namespace CustomerAddress {
   /** Retrieves details a single customer address.  */
   export type GetById = {
     path: `customers/${CustomerId}/addresses/${AddressId}`;
+    method: Method.Get;
     response: {
       customer_address: _ShippingAddress;
     };
@@ -4143,6 +4171,7 @@ export namespace CustomerAddress {
   /** Updates an existing customer address.  */
   export type UpdateById = {
     path: `customers/${CustomerId}/addresses/${AddressId}`;
+    method: Method.Put;
     body: {
       address: _Address;
     };
@@ -4154,11 +4183,13 @@ export namespace CustomerAddress {
   /** Removes an address from a customer’s address list.  */
   export type DeleteById = {
     path: `customers/${CustomerId}/addresses/${AddressId}`;
+    method: Method.Delete;
   };
 
   /** Creates a new address for a customer.  */
   export type Create = {
     path: `customers/${CustomerId}/addresses`;
+    method: Method.Post;
     body: {
       address: _Address;
     };
@@ -4170,6 +4201,7 @@ export namespace CustomerAddress {
   /** Performs bulk operations for multiple customer addresses.  */
   export type Update = {
     path: `customers/${CustomerId}/addresses/set`;
+    method: Method.Put;
     query: {
       /** Performs bulk operations for customer addresses specified by a comma-separated list of IDs. */
       "address_ids[]"?: string;
@@ -4181,6 +4213,7 @@ export namespace CustomerAddress {
   /** Sets the default address for a customer.  */
   export type DefaultById = {
     path: `customers/${CustomerId}/addresses/${AddressId}/default`;
+    method: Method.Put;
     response: {
       customer_address: _ShippingAddress;
     };
@@ -4189,6 +4222,7 @@ export namespace CustomerAddress {
   /** Retrieves a list of addresses for a customer. Note: As of version 2019-10, this endpoint implements pagination by using links that are provided in the response header. Sending the page parameter will return an error. To learn more, see Making requests to paginated REST Admin API endpoints.  */
   export type Get = {
     path: `customers/${CustomerId}/addresses`;
+    method: Method.Get;
     response: {
       addresses: _Address;
     };
@@ -4200,6 +4234,7 @@ export namespace CustomerSavedSearch {
   /** Creates a customer saved search.  */
   export type Create = {
     path: `customer_saved_searches`;
+    method: Method.Post;
     body: {
       customer_saved_search: Omit<
         _CustomerSavedSearch,
@@ -4214,6 +4249,7 @@ export namespace CustomerSavedSearch {
   /** Retrieves a count of all customer saved searches.  */
   export type Count = {
     path: `customer_saved_searches/count`;
+    method: Method.Get;
     query: {
       /** Restrict results to after the specified ID */
       since_id?: string;
@@ -4226,6 +4262,7 @@ export namespace CustomerSavedSearch {
   /** Retrieves a single customer saved search.  */
   export type GetById = {
     path: `customer_saved_searches/${CustomerSavedSearchId}`;
+    method: Method.Get;
     query: {
       /** Show only certain fields, specified by a comma-separated list of field names. */
       fields?: string;
@@ -4238,6 +4275,7 @@ export namespace CustomerSavedSearch {
   /** Updates a customer saved search.  */
   export type UpdateById = {
     path: `customer_saved_searches/${CustomerSavedSearchId}`;
+    method: Method.Put;
     body: {
       customer_saved_search: Omit<
         _CustomerSavedSearch,
@@ -4252,11 +4290,13 @@ export namespace CustomerSavedSearch {
   /** Deletes a customer saved search.  */
   export type DeleteById = {
     path: `customer_saved_searches/${CustomerSavedSearchId}`;
+    method: Method.Delete;
   };
 
   /** Retrieves a list of customer saved searches. Note: As of version 2019-07, this endpoint implements pagination by using links that are provided in the response header. Sending the page parameter will return an error. To learn more, see Making requests to paginated REST Admin API endpoints.  */
   export type Get = {
     path: `customer_saved_searches`;
+    method: Method.Get;
     query: {
       /** Show only certain fields, specified by a comma-separated list of field names. */
       fields?: string;
@@ -4273,6 +4313,7 @@ export namespace CustomerSavedSearch {
   /** Retrieves all customers returned by a customer saved search.  */
   export type CustomersById = {
     path: `customer_saved_searches/${CustomerSavedSearchId}/customers`;
+    method: Method.Get;
     query: {
       /** Show only certain fields, specified by a comma-separated list of field names. */
       fields?: string;
@@ -4291,6 +4332,7 @@ export namespace DeprecatedAPIcalls {
   /** Retrieves a list of deprecated API calls made by your private apps in the past 30 days.  */
   export type Get = {
     path: `deprecated_api_calls`;
+    method: Method.Get;
     response: {
       data_updated_at?: Date;
       deprecated_api_calls: _DeprecatedApiCalls;
@@ -4305,6 +4347,7 @@ export namespace DiscountCode {
   /** Creates a discount code  */
   export type Create = {
     path: `price_rules/${PriceRuleId}/discount_codes`;
+    method: Method.Post;
     body: {
       discount_code: Omit<
         _DiscountCode,
@@ -4326,6 +4369,7 @@ export namespace DiscountCode {
   /** Updates an existing discount code  */
   export type UpdateById = {
     path: `price_rules/${PriceRuleId}/discount_codes/${DiscountCodeId}`;
+    method: Method.Put;
     body: {
       discount_code: Omit<
         _DiscountCode,
@@ -4347,6 +4391,7 @@ export namespace DiscountCode {
   /** Retrieves a single discount code  */
   export type GetById = {
     path: `price_rules/${PriceRuleId}/discount_codes/${DiscountCodeId}`;
+    method: Method.Get;
     response: {
       discount_code: _DiscountCode;
     };
@@ -4355,6 +4400,7 @@ export namespace DiscountCode {
   /** Deletes a discount code  */
   export type DeleteById = {
     path: `price_rules/${PriceRuleId}/discount_codes/${DiscountCodeId}`;
+    method: Method.Delete;
   };
 
   /** Retrieves the location of a discount code.
@@ -4362,6 +4408,7 @@ export namespace DiscountCode {
    Depending on your HTTP client, the location of the discount code might follow the location header automatically.  */
   export type Lookup = {
     path: `discount_codes/lookup`;
+    method: Method.Get;
     query: {
       /** Retrieves the location of a discount code by code name. */
       code?: string;
@@ -4371,6 +4418,7 @@ export namespace DiscountCode {
   /** Retrieves a count of discount codes for a shop  */
   export type Count = {
     path: `discount_codes/count`;
+    method: Method.Get;
     query: {
       /** Show discount codes with times used. */
       times_used?: string;
@@ -4402,6 +4450,7 @@ export namespace DiscountCode {
    */
   export type CreateBatch = {
     path: `price_rules/${PriceRuleId}/batch`;
+    method: Method.Post;
     body: {
       discount_codes: Omit<
         _DiscountCode,
@@ -4423,6 +4472,7 @@ export namespace DiscountCode {
   /** Retrieves a discount code creation job  */
   export type GetBatchById = {
     path: `price_rules/${PriceRuleId}/batch/${BatchId}`;
+    method: Method.Get;
     response: {
       discount_code_creation: _DiscountCodeCreation;
     };
@@ -4431,6 +4481,7 @@ export namespace DiscountCode {
   /** Retrieve a list of discount codes. Note: As of version 2019-10, this endpoint implements pagination by using links that are provided in the response header. Sending the page parameter will return an error. To learn more, see Making requests to paginated REST Admin API endpoints.  */
   export type Get = {
     path: `price_rules/${PriceRuleId}/discount_codes`;
+    method: Method.Get;
     response: {
       discount_codes: _DiscountCode;
     };
@@ -4441,6 +4492,7 @@ export namespace DiscountCode {
    encountered errors during the creation process include a populated errors field.  */
   export type GetBatchDiscountCodes = {
     path: `price_rules/${PriceRuleId}/batch/${BatchId}/discount_codes`;
+    method: Method.Get;
     response: {
       discount_codes: _DiscountCode;
     };
@@ -4451,6 +4503,7 @@ export namespace PriceRule {
   /** Creates a price rule  */
   export type Create = {
     path: `price_rules`;
+    method: Method.Post;
     body: {
       price_rule: Omit<_PriceRule, "admin_graphql_api_id" | "created_at" | "updated_at" | "id">;
     };
@@ -4462,6 +4515,7 @@ export namespace PriceRule {
   /** Updates an existing a price rule  */
   export type UpdateById = {
     path: `price_rules/${PriceRuleId}`;
+    method: Method.Put;
     body: {
       price_rule: Omit<_PriceRule, "admin_graphql_api_id" | "created_at" | "updated_at" | "id">;
     };
@@ -4473,6 +4527,7 @@ export namespace PriceRule {
   /** Retrieves a single price rule  */
   export type GetById = {
     path: `price_rules/${PriceRuleId}`;
+    method: Method.Get;
     response: {
       price_rule: _PriceRule;
     };
@@ -4481,11 +4536,13 @@ export namespace PriceRule {
   /** Deletes a price rule  */
   export type DeleteById = {
     path: `price_rules/${PriceRuleId}`;
+    method: Method.Delete;
   };
 
   /** Retrieves a count of all price rules.  */
   export type Count = {
     path: `price_rules/count`;
+    method: Method.Get;
     response: {
       count?: number;
     };
@@ -4494,6 +4551,7 @@ export namespace PriceRule {
   /** Retrieves a list of price rules. Note: As of version 2019-10, this endpoint implements pagination by using links that are provided in the response header. Sending the page parameter will return an error. To learn more, see Making requests to paginated REST Admin API endpoints.  */
   export type Get = {
     path: `price_rules`;
+    method: Method.Get;
     query: {
       /** Show price rules created before date (format 2017-03-25T16:15:47-04:00). */
       created_at_max?: string;
@@ -4529,6 +4587,7 @@ export namespace Event {
   /** Retrieves a single event by its ID  */
   export type GetById = {
     path: `events/${EventId}`;
+    method: Method.Get;
     query: {
       /** Show only certain fields, specified by a comma-separated list of field names. */
       fields?: string;
@@ -4541,6 +4600,7 @@ export namespace Event {
   /** Retrieves a count of events  */
   export type Count = {
     path: `events/count`;
+    method: Method.Get;
     query: {
       /** Count only events created at or before this date and time. (format: 2014-04-25T16:15:47-04:00) */
       created_at_max?: string;
@@ -4555,6 +4615,7 @@ export namespace Event {
   /** Retrieves a list of events. Note: As of version 2019-07, this endpoint implements pagination by using links that are provided in the response header. Sending the page parameter will return an error. To learn more, see Making requests to paginated REST Admin API endpoints.  */
   export type Get = {
     path: `events`;
+    method: Method.Get;
     query: {
       /** Show events created at or before this date and time. (format: 2014-04-25T16:15:47-04:00) */
       created_at_max?: string;
@@ -4582,6 +4643,7 @@ export namespace Webhook {
   /** Create a new webhook subscription by specifying both an address and a topic.Amazon EventBridge and Google Pub/Sub webhook subscriptions use this field differently.For more information, refer to the Amazon EventBridgeand Google Cloud Pub/Sub pages.  */
   export type Create = {
     path: `webhooks`;
+    method: Method.Post;
     body: {
       webhook: Omit<
         _Webhook,
@@ -4603,6 +4665,7 @@ export namespace Webhook {
   /** Retrieves a count of existing webhook subscriptions. The results can be filtered by address or by topic.  */
   export type Count = {
     path: `webhooks/count`;
+    method: Method.Get;
     query: {
       /** Webhook subscriptions that send the POST request to this URI. */
       address?: string;
@@ -4617,6 +4680,7 @@ export namespace Webhook {
   /** Retrieves a single webhook subscription. The properties desired in the result can be specified.  */
   export type GetById = {
     path: `webhooks/${WebhookId}`;
+    method: Method.Get;
     query: {
       /** Comma-separated list of the properties you want returned for each item in the result list. Use this parameter to restrict the returned list of items to only those properties you specify. */
       fields?: string;
@@ -4629,6 +4693,7 @@ export namespace Webhook {
   /** Update a webhook subscription's topic or address URIs  */
   export type UpdateById = {
     path: `webhooks/${WebhookId}`;
+    method: Method.Put;
     body: {
       webhook: Omit<
         _Webhook,
@@ -4650,11 +4715,13 @@ export namespace Webhook {
   /** Delete a webhook subscription  */
   export type DeleteById = {
     path: `webhooks/${WebhookId}`;
+    method: Method.Delete;
   };
 
   /** Retrieves a list of webhooks.  */
   export type Get = {
     path: `webhooks`;
+    method: Method.Get;
     query: {
       /** Retrieve webhook subscriptions that send the POST request to this URI. */
       address?: string;
@@ -4686,6 +4753,7 @@ export namespace InventoryItem {
   /** Retrieves a single inventory item by ID  */
   export type GetById = {
     path: `inventory_items/${InventoryItemId}`;
+    method: Method.Get;
     response: {
       inventory_item: _InventoryItem;
     };
@@ -4694,6 +4762,7 @@ export namespace InventoryItem {
   /** Updates an existing inventory item  */
   export type UpdateById = {
     path: `inventory_items/${InventoryItemId}`;
+    method: Method.Put;
     body: {
       inventory_item: Omit<
         _InventoryItem,
@@ -4708,6 +4777,7 @@ export namespace InventoryItem {
   /** Retrieves a list of inventory items. Note: As of version 2019-10, this endpoint implements pagination by using links that are provided in the response header. Sending the page parameter will return an error. To learn more, see Making requests to paginated REST Admin API endpoints.  */
   export type Get = {
     path: `inventory_items`;
+    method: Method.Get;
     query: {
       /** Show only inventory items specified by a comma-separated list of IDs. */
       ids?: string;
@@ -4724,6 +4794,7 @@ export namespace InventoryLevel {
   /** Adjusts the inventory level of an inventory item at a single location  */
   export type Adjust = {
     path: `inventory_levels/adjust`;
+    method: Method.Post;
     query: {
       /** The amount to adjust the available inventory quantity. Send negative values to subtract from the current available quantity. For example, "available_adjustment": 2 increases the current available quantity by 2, and "available_adjustment": -3decreases the current available quantity by 3. */
       available_adjustment?: string;
@@ -4748,6 +4819,7 @@ export namespace InventoryLevel {
    first connect the inventory item to another location, and then delete the previous inventory level.  */
   export type Delete = {
     path: `inventory_levels`;
+    method: Method.Delete;
     query: {
       /** The ID for the inventory item. */
       inventory_item_id?: string;
@@ -4761,6 +4833,7 @@ export namespace InventoryLevel {
    fulfillment service locations.  */
   export type Connect = {
     path: `inventory_levels/connect`;
+    method: Method.Post;
     query: {
       /** The ID of the inventory item. */
       inventory_item_id?: string;
@@ -4784,6 +4857,7 @@ export namespace InventoryLevel {
    fulfillment service locations.  */
   export type Set = {
     path: `inventory_levels/set`;
+    method: Method.Post;
     query: {
       /** Sets the available inventory quantity. */
       available?: string;
@@ -4809,6 +4883,7 @@ export namespace InventoryLevel {
    Note: As of version 2019-10, this endpoint implements pagination by using links that are provided in the response header. Sending the page parameter will return an error. To learn more, see Making requests to paginated REST Admin API endpoints.  */
   export type Get = {
     path: `inventory_levels`;
+    method: Method.Get;
     query: {
       /** A comma-separated list of inventory item IDs. */
       inventory_item_ids?: string;
@@ -4830,6 +4905,7 @@ export namespace Location {
   /** Retrieves a single location by its ID  */
   export type GetById = {
     path: `locations/${LocationId}`;
+    method: Method.Get;
     response: {
       location: _Location;
     };
@@ -4838,6 +4914,7 @@ export namespace Location {
   /** Retrieves a count of locations  */
   export type Count = {
     path: `locations/count`;
+    method: Method.Get;
     response: {
       count?: number;
     };
@@ -4846,6 +4923,7 @@ export namespace Location {
   /** Retrieves a list of locations  */
   export type Get = {
     path: `locations`;
+    method: Method.Get;
     response: {
       locations: _Location;
     };
@@ -4854,6 +4932,7 @@ export namespace Location {
   /** Retrieves a list of inventory levels for a location. Note: As of version 2019-10, this endpoint implements pagination by using links that are provided in the response header. Sending the page parameter will return an error. To learn more, see Making requests to paginated REST Admin API endpoints.  */
   export type InventoryLevelsById = {
     path: `locations/${LocationId}/inventory_levels`;
+    method: Method.Get;
     response: {
       inventory_levels: _InventoryLevel;
     };
@@ -4865,6 +4944,7 @@ export namespace MarketingEvent {
   /** Creates a marketing event  */
   export type Create = {
     path: `marketing_events`;
+    method: Method.Post;
     body: {
       marketing_event: Omit<
         _MarketingEvent,
@@ -4880,6 +4960,7 @@ export namespace MarketingEvent {
   /** Retrieves a count of all marketing events  */
   export type Count = {
     path: `marketing_events/count`;
+    method: Method.Get;
     response: {
       count?: number;
     };
@@ -4888,6 +4969,7 @@ export namespace MarketingEvent {
   /** Retrieves a single marketing event  */
   export type GetById = {
     path: `marketing_events/${MarketingEventId}`;
+    method: Method.Get;
     response: {
       marketing_event: _MarketingEvent;
     };
@@ -4896,6 +4978,7 @@ export namespace MarketingEvent {
   /** Updates a marketing event  */
   export type UpdateById = {
     path: `marketing_events/${MarketingEventId}`;
+    method: Method.Put;
     body: {
       marketing_event: Omit<
         _MarketingEvent,
@@ -4911,11 +4994,13 @@ export namespace MarketingEvent {
   /** Deletes a marketing event  */
   export type DeleteById = {
     path: `marketing_events/${MarketingEventId}`;
+    method: Method.Delete;
   };
 
   /** Retrieves a list of all marketing events. Note: As of version 2019-10, this endpoint implements pagination by using links that are provided in the response header. Sending the page parameter will return an error. To learn more, see Making requests to paginated REST Admin API endpoints.  */
   export type Get = {
     path: `marketing_events`;
+    method: Method.Get;
     query: {
       /** The amount of results to return. */
       limit?: string;
@@ -4931,6 +5016,7 @@ export namespace MarketingEvent {
    Engagements are aggregated on a daily basis. However, the data can be sent more often than once a day if the information is available. If you create an engagement with the same value for occurred_on as an existing engagement, then the new engagement will overwrite the previous one.  */
   export type EngagementsById = {
     path: `marketing_events/${MarketingEventId}/engagements`;
+    method: Method.Post;
     query: {
       /** The date that these engagements occurred on, in the format “YYYY-MM-DD”. */
       occurred_on?: string;
@@ -4965,6 +5051,7 @@ export namespace Metafield {
   /** Creates a new metafield for a resource.  */
   export type Create = {
     path: `metafields`;
+    method: Method.Post;
     body: {
       metafield: Omit<
         _Metafield,
@@ -4980,6 +5067,7 @@ export namespace Metafield {
   /** Retrieves a count of a resource's metafields.  */
   export type Count = {
     path: `metafields/count`;
+    method: Method.Get;
     response: {
       count?: number;
     };
@@ -4988,6 +5076,7 @@ export namespace Metafield {
   /** Retrieves a single metafield from a resource by its ID.  */
   export type GetById = {
     path: `metafields/${MetafieldId}`;
+    method: Method.Get;
     query: {
       /** Show only certain fields, specified by a comma-separated list of field names. */
       fields?: string;
@@ -5000,6 +5089,7 @@ export namespace Metafield {
   /** Updates a metafield.  */
   export type UpdateById = {
     path: `metafields/${MetafieldId}`;
+    method: Method.Put;
     body: {
       metafield: Omit<
         _Metafield,
@@ -5015,11 +5105,13 @@ export namespace Metafield {
   /** Deletes a metafield by its ID.  */
   export type DeleteById = {
     path: `metafields/${MetafieldId}`;
+    method: Method.Delete;
   };
 
   /** Retrieves a list of metafields that belong to a resource. Note: As of version 2019-07, this endpoint implements pagination by using links that are provided in the response header. Sending the page parameter will return an error. To learn more, see Making requests to paginated REST Admin API endpoints.  */
   export type Get = {
     path: `metafields`;
+    method: Method.Get;
     query: {
       /** Show metafields created before date (format: 2014-04-25T16:15:47-04:00) */
       created_at_max?: string;
@@ -5055,6 +5147,7 @@ export type ArticleId = number;
 export namespace Article {
   export type Create = {
     path: `blogs/${BlogId}/articles`;
+    method: Method.Post;
     body: {
       article: Omit<
         _Article,
@@ -5068,6 +5161,7 @@ export namespace Article {
 
   export type Count = {
     path: `blogs/${BlogId}/articles/count`;
+    method: Method.Get;
     query: {
       /** Count articles created before date (format: 2014-04-25T16:15:47-04:00). */
       created_at_max?: string;
@@ -5092,6 +5186,7 @@ export namespace Article {
   /** Retrieves a single article  */
   export type GetById = {
     path: `blogs/${BlogId}/articles/${ArticleId}`;
+    method: Method.Get;
     query: {
       /** Show only certain fields, specifed by a comma-separated list of field names. */
       fields?: string;
@@ -5103,6 +5198,7 @@ export namespace Article {
 
   export type UpdateById = {
     path: `blogs/${BlogId}/articles/${ArticleId}`;
+    method: Method.Put;
     body: {
       article: Omit<
         _Article,
@@ -5116,11 +5212,13 @@ export namespace Article {
 
   export type DeleteById = {
     path: `blogs/${BlogId}/articles/${ArticleId}`;
+    method: Method.Delete;
   };
 
   /** Retrieves a list of all articles from a blog. Note: As of version 2019-10, this endpoint implements pagination by using links that are provided in the response header. Sending the page parameter will return an error. To learn more, see Making requests to paginated REST Admin API endpoints.  */
   export type Get = {
     path: `blogs/${BlogId}/articles`;
+    method: Method.Get;
     query: {
       /** Filter articles by article author. */
       author?: string;
@@ -5156,6 +5254,7 @@ export namespace Article {
 
   export type Authors = {
     path: `articles/authors`;
+    method: Method.Get;
     response: {
       authors?: string;
     };
@@ -5163,6 +5262,7 @@ export namespace Article {
 
   export type Tags = {
     path: `articles/tags`;
+    method: Method.Get;
     query: {
       /** The maximum number of tags to retrieve. */
       limit?: string;
@@ -5182,6 +5282,7 @@ export namespace Asset {
    In the PUT request, you can include the src or source_key property to create the asset from an existing file.  */
   export type Update = {
     path: `themes/${ThemeId}/assets`;
+    method: Method.Put;
     query: {
       /** The path within the theme to an existing asset. Include in the body of the PUT request to create a duplicate asset. */
       source_key?: string;
@@ -5209,6 +5310,7 @@ export namespace Asset {
   /** Deletes an asset from a theme.  */
   export type Delete = {
     path: `themes/${ThemeId}/assets`;
+    method: Method.Delete;
     query: {
       /** Deletes a single asset from a theme by specifying the asset's key.  */
       "asset[key]"?: string;
@@ -5224,6 +5326,7 @@ export namespace Asset {
 
   export type Get = {
     path: `themes/${ThemeId}/assets`;
+    method: Method.Get;
     query: {
       /** Retrieves a single asset for a theme by specifying the asset's key.  */
       "asset[key]"?: string;
@@ -5240,6 +5343,7 @@ export namespace Blog {
   /** Get a count of all blogs  */
   export type Count = {
     path: `blogs/count`;
+    method: Method.Get;
     response: {
       count?: number;
     };
@@ -5248,6 +5352,7 @@ export namespace Blog {
   /** Get a single blog by its ID  */
   export type GetById = {
     path: `blogs/${BlogId}`;
+    method: Method.Get;
     query: {
       /** comma-separated list of fields to include in the response */
       fields?: string;
@@ -5260,6 +5365,7 @@ export namespace Blog {
   /** Update a blog  */
   export type UpdateById = {
     path: `blogs/${BlogId}`;
+    method: Method.Put;
     body: {
       blog: Omit<
         _Blog,
@@ -5278,11 +5384,13 @@ export namespace Blog {
   /** Delete a blog  */
   export type DeleteById = {
     path: `blogs/${BlogId}`;
+    method: Method.Delete;
   };
 
   /** Create a new blog  */
   export type Create = {
     path: `blogs`;
+    method: Method.Post;
     query: {
       /** The title of the blog. Maximum length: 255 characters. */
       title?: string;
@@ -5305,6 +5413,7 @@ export namespace Blog {
   /** Retrieve a list of all blogs. Note: As of version 2019-10, this endpoint implements pagination by using links that are provided in the response header. Sending the page parameter will return an error. To learn more, see Making requests to paginated REST Admin API endpoints.  */
   export type Get = {
     path: `blogs`;
+    method: Method.Get;
     query: {
       /** comma-separated list of fields to include in the response */
       fields?: string;
@@ -5326,6 +5435,7 @@ export namespace Comment {
   /** Retrieves a count of comments  */
   export type Count = {
     path: `comments/count`;
+    method: Method.Get;
     query: {
       /** Count comments created before date (format: 2014-04-25T16:15:47-04:00). */
       created_at_max?: string;
@@ -5352,6 +5462,7 @@ export namespace Comment {
   /** Retrieves a single comment by its ID  */
   export type GetById = {
     path: `comments/${CommentId}`;
+    method: Method.Get;
     query: {
       /** Show only certain fields, specified by a comma-separated list of field names. */
       fields?: string;
@@ -5364,6 +5475,7 @@ export namespace Comment {
   /** Updates a comment of an article  */
   export type UpdateById = {
     path: `comments/${CommentId}`;
+    method: Method.Put;
     body: {
       comment: Omit<
         _Comment,
@@ -5378,6 +5490,7 @@ export namespace Comment {
   /** Creates a comment for an article  */
   export type Create = {
     path: `comments`;
+    method: Method.Post;
     body: {
       comment: Omit<
         _Comment,
@@ -5392,6 +5505,7 @@ export namespace Comment {
   /** Marks a comment as spam  */
   export type SpamById = {
     path: `comments/${CommentId}/spam`;
+    method: Method.Post;
     response: {
       published_at?: Date;
       status?: string;
@@ -5412,6 +5526,7 @@ export namespace Comment {
   /** Marks a comment as not spam  */
   export type NotSpamById = {
     path: `comments/${CommentId}/not_spam`;
+    method: Method.Post;
     response: {
       published_at?: Date;
       status?: string;
@@ -5432,6 +5547,7 @@ export namespace Comment {
   /** Approves a comment  */
   export type ApproveById = {
     path: `comments/${CommentId}/approve`;
+    method: Method.Post;
     response: {
       published_at?: Date;
       status?: string;
@@ -5452,6 +5568,7 @@ export namespace Comment {
   /** Removes a comment  */
   export type RemoveById = {
     path: `comments/${CommentId}/remove`;
+    method: Method.Post;
     response: {
       published_at?: Date;
       status?: string;
@@ -5472,6 +5589,7 @@ export namespace Comment {
   /** Restores a previously removed comment  */
   export type RestoreById = {
     path: `comments/${CommentId}/restore`;
+    method: Method.Post;
     response: {
       published_at?: Date;
       status?: string;
@@ -5492,6 +5610,7 @@ export namespace Comment {
   /** Retrieves a list of comments. Note: As of version 2019-10, this endpoint implements pagination by using links that are provided in the response header. Sending the page parameter will return an error. To learn more, see Making requests to paginated REST Admin API endpoints.  */
   export type Get = {
     path: `comments`;
+    method: Method.Get;
     query: {
       /** Show comments created before date (format: 2014-04-25T16:15:47-04:00). */
       created_at_max?: string;
@@ -5527,6 +5646,7 @@ export namespace Page {
   /** Creates a page  */
   export type Create = {
     path: `pages`;
+    method: Method.Post;
     body: {
       page: Omit<_Page, "admin_graphql_api_id" | "created_at" | "id" | "shop_id" | "updated_at">;
     };
@@ -5538,6 +5658,7 @@ export namespace Page {
   /** Retrieves a page count.  */
   export type Count = {
     path: `pages/count`;
+    method: Method.Get;
     query: {
       /** Count pages created before date (format: 2008-12-31). */
       created_at_max?: string;
@@ -5564,6 +5685,7 @@ export namespace Page {
   /** Retrieves a single page by its ID.  */
   export type GetById = {
     path: `pages/${PageId}`;
+    method: Method.Get;
     query: {
       /** Show only certain fields, specified by a comma-separated list of field names. */
       fields?: string;
@@ -5576,6 +5698,7 @@ export namespace Page {
   /** Updates a page  */
   export type UpdateById = {
     path: `pages/${PageId}`;
+    method: Method.Put;
     body: {
       page: Omit<_Page, "admin_graphql_api_id" | "created_at" | "id" | "shop_id" | "updated_at">;
     };
@@ -5587,11 +5710,13 @@ export namespace Page {
   /** Deletes a page.  */
   export type DeleteById = {
     path: `pages/${PageId}`;
+    method: Method.Delete;
   };
 
   /** Retrieve a list of all pages. Note: As of version 2019-10, this endpoint implements pagination by using links that are provided in the response header. Sending the page parameter will return an error. To learn more, see Making requests to paginated REST Admin API endpoints.  */
   export type Get = {
     path: `pages`;
+    method: Method.Get;
     query: {
       /** Show pages created before date (format: 2008-12-31). */
       created_at_max?: string;
@@ -5630,6 +5755,7 @@ export namespace Redirect {
    For example, "path": "http://www.johns-apparel.com/springwear" will be saved as "path": "springwear".  */
   export type Create = {
     path: `redirects`;
+    method: Method.Post;
     body: {
       redirect: Omit<_Redirect, "admin_graphql_api_id" | "id">;
     };
@@ -5641,6 +5767,7 @@ export namespace Redirect {
   /** Retrieves a count of URL redirects  */
   export type Count = {
     path: `redirects/count`;
+    method: Method.Get;
     query: {
       /** Count redirects with given path. */
       path?: string;
@@ -5655,6 +5782,7 @@ export namespace Redirect {
   /** Retrieves a single redirect  */
   export type GetById = {
     path: `redirects/${RedirectId}`;
+    method: Method.Get;
     query: {
       /** Show only certain fields, specified by a comma-separated list of field names. */
       fields?: string;
@@ -5667,6 +5795,7 @@ export namespace Redirect {
   /** Updates an existing redirect  */
   export type UpdateById = {
     path: `redirects/${RedirectId}`;
+    method: Method.Put;
     body: {
       redirect: Omit<_Redirect, "admin_graphql_api_id" | "id">;
     };
@@ -5678,11 +5807,13 @@ export namespace Redirect {
   /** Deletes a redirect  */
   export type DeleteById = {
     path: `redirects/${RedirectId}`;
+    method: Method.Delete;
   };
 
   /** Retrieves a list of URL redirects. Note: As of version 2019-10, this endpoint implements pagination by using links that are provided in the response header. Sending the page parameter will return an error. To learn more, see Making requests to paginated REST Admin API endpoints.  */
   export type Get = {
     path: `redirects`;
+    method: Method.Get;
     query: {
       /** Show only certain fields, specified by a comma-separated list of field names. */
       fields?: string;
@@ -5706,6 +5837,7 @@ export namespace ScriptTag {
   /** Creates a new script tag  */
   export type Create = {
     path: `script_tags`;
+    method: Method.Post;
     body: {
       script_tag: Omit<
         _ScriptTag,
@@ -5721,6 +5853,7 @@ export namespace ScriptTag {
   /** Retrieves a count of all script tags  */
   export type Count = {
     path: `script_tags/count`;
+    method: Method.Get;
     query: {
       /** Count only script tags with a given URL. */
       src?: string;
@@ -5733,6 +5866,7 @@ export namespace ScriptTag {
   /** Retrieves a single script tag  */
   export type GetById = {
     path: `script_tags/${ScriptTagId}`;
+    method: Method.Get;
     query: {
       /** A comma-separated list of fields to include in the response. */
       fields?: string;
@@ -5745,6 +5879,7 @@ export namespace ScriptTag {
   /** Updates a script tag  */
   export type UpdateById = {
     path: `script_tags/${ScriptTagId}`;
+    method: Method.Put;
     body: {
       script_tag: Omit<
         _ScriptTag,
@@ -5760,11 +5895,13 @@ export namespace ScriptTag {
   /** Deletes a script tag  */
   export type DeleteById = {
     path: `script_tags/${ScriptTagId}`;
+    method: Method.Delete;
   };
 
   /** Retrieves a list of all script tags. Note: As of version 2019-10, this endpoint implements pagination by using links that are provided in the response header. Sending the page parameter will return an error. To learn more, see Making requests to paginated REST Admin API endpoints.  */
   export type Get = {
     path: `script_tags`;
+    method: Method.Get;
     query: {
       /** Show script tags created before this date. (format: 2014-04-25T16:15:47-04:00) */
       created_at_max?: string;
@@ -5796,6 +5933,7 @@ export namespace Theme {
    of its files have been extracted and stored by Shopify, which might take a couple of minutes.  */
   export type Create = {
     path: `themes`;
+    method: Method.Post;
     body: {
       theme: Omit<
         _Theme,
@@ -5816,6 +5954,7 @@ export namespace Theme {
   /** Retrieves a single theme.  */
   export type GetById = {
     path: `themes/${ThemeId}`;
+    method: Method.Get;
     query: {
       /** Show only certain fields, specified by a comma-separated list of field names. */
       fields?: string;
@@ -5828,6 +5967,7 @@ export namespace Theme {
   /** Updates an existing theme.  */
   export type UpdateById = {
     path: `themes/${ThemeId}`;
+    method: Method.Put;
     body: {
       theme: Omit<
         _Theme,
@@ -5848,6 +5988,7 @@ export namespace Theme {
   /** Deletes a theme.  */
   export type DeleteById = {
     path: `themes/${ThemeId}`;
+    method: Method.Delete;
     response: {
       id?: number;
       name?: string;
@@ -5864,6 +6005,7 @@ export namespace Theme {
   /** Retrieves a list of themes.  */
   export type Get = {
     path: `themes`;
+    method: Method.Get;
     query: {
       /** Show only certain fields, specified by a comma-separated list of field names. */
       fields?: string;
@@ -5878,6 +6020,7 @@ export namespace Abandonedcheckouts {
   /** Retrieves a count of checkouts from the past 90 days  */
   export type Count = {
     path: `checkouts/count`;
+    method: Method.Get;
     query: {
       /** Count checkouts created before the specified date. (format: 2014-04-25T16:15:47-04:00) */
       created_at_max?: string;
@@ -5900,6 +6043,7 @@ export namespace Abandonedcheckouts {
   /** Retrieves a list of abandoned checkouts.  */
   export type Get = {
     path: `checkouts`;
+    method: Method.Get;
     query: {
       /** Show checkouts created before the specified date. (format: 2014-04-25T16:15:47-04:00) */
       created_at_max?: string;
@@ -5970,6 +6114,7 @@ export namespace DraftOrder {
    */
   export type Create = {
     path: `draft_orders`;
+    method: Method.Post;
     query: {
       /** Used to load the customer. When a customer is loaded, the customer’s email address is also associated. */
       customer_id?: string;
@@ -5987,6 +6132,7 @@ export namespace DraftOrder {
   /** Updates a draft order  */
   export type UpdateById = {
     path: `draft_orders/${DraftOrderId}`;
+    method: Method.Put;
     body: {
       draft_order: Omit<_DraftOrder, "admin_graphql_api_id" | "payment_terms">;
     };
@@ -5998,6 +6144,7 @@ export namespace DraftOrder {
   /** Retrieves a specific draft order  */
   export type GetById = {
     path: `draft_orders/${DraftOrderId}`;
+    method: Method.Get;
     query: {
       /** A comma-separated list of fields to include in the response */
       fields?: string;
@@ -6010,11 +6157,13 @@ export namespace DraftOrder {
   /** Deletes a draft order  */
   export type DeleteById = {
     path: `draft_orders/${DraftOrderId}`;
+    method: Method.Delete;
   };
 
   /** Retrieves a count of draft orders  */
   export type Count = {
     path: `draft_orders/count`;
+    method: Method.Get;
     query: {
       /** Count draft orders after the specified ID. */
       since_id?: string;
@@ -6041,6 +6190,7 @@ export namespace DraftOrder {
    */
   export type SendInvoiceById = {
     path: `draft_orders/${DraftOrderId}/send_invoice`;
+    method: Method.Post;
     body: {
       draft_order_invoice: _CustomerInvite;
     };
@@ -6058,6 +6208,7 @@ export namespace DraftOrder {
    */
   export type CompleteById = {
     path: `draft_orders/${DraftOrderId}/complete`;
+    method: Method.Put;
     query: {
       payment_pending?: string;
     };
@@ -6069,6 +6220,7 @@ export namespace DraftOrder {
   /** Retrieves a list of draft orders. Note: As of version 2019-10, this endpoint implements pagination by using links that are provided in the response header. Sending the page parameter will return an error. To learn more, see Making requests to paginated REST Admin API endpoints.  */
   export type Get = {
     path: `draft_orders`;
+    method: Method.Get;
     query: {
       /** A comma-separated list of fields to include in the response */
       fields?: string;
@@ -6095,6 +6247,7 @@ export namespace Order {
   /** Retrieve an order by specifying the ID. All fields of an order are returned unless specific fields are named.  */
   export type GetById = {
     path: `orders/${OrderId}`;
+    method: Method.Get;
     query: {
       /** Retrieve only certain fields, specified by a comma-separated list of fields names. */
       fields?: string;
@@ -6107,6 +6260,7 @@ export namespace Order {
   /** This operation allows for updating properties of an order including `buyer_accepts_marketing`, `email`, `phone`, `note`, `tags`, `metafields` and `shipping_address_attributes`. It is not for editing the items of an order.  */
   export type UpdateById = {
     path: `orders/${OrderId}`;
+    method: Method.Put;
     body: {
       order: Omit<
         _Order,
@@ -6157,11 +6311,13 @@ export namespace Order {
   /** Deletes an order. Orders that interact with an online gateway can't be deleted.  */
   export type DeleteById = {
     path: `orders/${OrderId}`;
+    method: Method.Delete;
   };
 
   /** Retrieve the total number of orders that meet the specified criteria.  */
   export type Count = {
     path: `orders/count`;
+    method: Method.Get;
     query: {
       /** Orders created before date specified. */
       created_at_max?: string;
@@ -6186,6 +6342,7 @@ export namespace Order {
   /** Closes an order. A closed order is one that has no more work to be done. All items have been fulfilled or refunded.  */
   export type CloseById = {
     path: `orders/${OrderId}/close`;
+    method: Method.Post;
     response: {
       order: _Order;
     };
@@ -6194,6 +6351,7 @@ export namespace Order {
   /** Re-opens a closed order  */
   export type OpenById = {
     path: `orders/${OrderId}/open`;
+    method: Method.Post;
     response: {
       order: _Order;
     };
@@ -6205,6 +6363,7 @@ export namespace Order {
    Cancels an order. Orders that are paid and have fulfillments can't be canceled.  */
   export type CancelById = {
     path: `orders/${OrderId}/cancel`;
+    method: Method.Post;
     query: {
       /** The amount to refund. If set, Shopify attempts to refund the specified amount, depending on its status. Shopify refunds through a manual gateway in cases where the original transaction was not made in Shopify. Refunds through a manual gateway are recorded as a refund on Shopify, but the customer is not refunded. */
       amount?: string;
@@ -6248,6 +6407,7 @@ export namespace Order {
    */
   export type Create = {
     path: `orders`;
+    method: Method.Post;
     body: {
       order: Omit<
         _Order,
@@ -6298,6 +6458,7 @@ export namespace Order {
   /** Retrieves a list of orders that meet the specified criteria. Usage notes: This endpoint implements pagination by using links that are provided in the response header. To learn more, see Making requests to paginated REST Admin API endpoints.  */
   export type Get = {
     path: `orders`;
+    method: Method.Get;
     query: {
       /** Show orders attributed to a certain app, specified by the app ID. Set as current to show orders for the app currently consuming the API. */
       attribution_app_id?: string;
@@ -6339,6 +6500,7 @@ export namespace OrderRisk {
   /** Creates an order risk for an order  */
   export type Create = {
     path: `orders/${OrderId}/risks`;
+    method: Method.Post;
     body: {
       risk: Omit<_Risk, "admin_graphql_api_id">;
     };
@@ -6350,6 +6512,7 @@ export namespace OrderRisk {
   /** Retrieves a single order risk by its ID  */
   export type GetById = {
     path: `orders/${OrderId}/risks/${RiskId}`;
+    method: Method.Get;
     response: {
       risk: _Risk;
     };
@@ -6361,6 +6524,7 @@ export namespace OrderRisk {
    */
   export type UpdateById = {
     path: `orders/${OrderId}/risks/${RiskId}`;
+    method: Method.Put;
     body: {
       risk: Omit<_Risk, "admin_graphql_api_id">;
     };
@@ -6375,11 +6539,13 @@ export namespace OrderRisk {
    */
   export type DeleteById = {
     path: `orders/${OrderId}/risks/${RiskId}`;
+    method: Method.Delete;
   };
 
   /** Retrieves a list of all order risks for an order. Note: As of version 2019-10, this endpoint implements pagination by using links that are provided in the response header. Sending the page parameter will return an error. To learn more, see Making requests to paginated REST Admin API endpoints.  */
   export type Get = {
     path: `orders/${OrderId}/risks`;
+    method: Method.Get;
     response: {
       risks: _Risk;
     };
@@ -6397,6 +6563,7 @@ export namespace Refund {
    */
   export type Create = {
     path: `orders/${OrderId}/refunds`;
+    method: Method.Post;
     query: {
       /**     The three-letter code (ISO 4217 format) for the currency used for the refund.  */
       currency?: string;
@@ -6429,6 +6596,7 @@ export namespace Refund {
   /** Retrieves a specific refund.  */
   export type GetById = {
     path: `orders/${OrderId}/refunds/${RefundId}`;
+    method: Method.Get;
     query: {
       /** Show only certain fields, specified by a comma-separated list of field names. */
       fields?: string;
@@ -6452,6 +6620,7 @@ export namespace Refund {
    which must to be changed to "kind" : "refund" for the refund to be accepted.  */
   export type Calculate = {
     path: `orders/${OrderId}/refunds/calculate`;
+    method: Method.Post;
     query: {
       /**      The three-letter code (ISO 4217 format) for the      currency used for the refund. Note: Required whenever the shipping amount property is provided.   */
       currency?: string;
@@ -6474,6 +6643,7 @@ export namespace Refund {
   /** Retrieves a list of refunds for an order. Note: As of version 2019-10, this endpoint implements pagination by using links that are provided in the response header. Sending the page parameter will return an error. To learn more, see Making requests to paginated REST Admin API endpoints.  */
   export type Get = {
     path: `orders/${OrderId}/refunds`;
+    method: Method.Get;
     query: {
       /** Show only certain fields, specified by a comma-separated list of field names. */
       fields?: string;
@@ -6496,6 +6666,7 @@ export namespace Transaction {
    Creates a transaction for an order.  */
   export type Create = {
     path: `orders/${OrderId}/transactions`;
+    method: Method.Post;
     query: {
       /** The origin of the transaction. Set to external to create a cash transaction for the associated order. */
       source?: string;
@@ -6525,6 +6696,7 @@ export namespace Transaction {
   /** Retrieves a count of an order's transactions.  */
   export type Count = {
     path: `orders/${OrderId}/transactions/count`;
+    method: Method.Get;
     response: {
       count?: number;
     };
@@ -6535,6 +6707,7 @@ export namespace Transaction {
    extended_authorization_attributes are available on this endpoint only to stores on the Shopify Plus plan that use Shopify Payments. To learn more about extended authorization periods, refer to Payment authorization.  */
   export type GetById = {
     path: `orders/${OrderId}/transactions/${TransactionId}`;
+    method: Method.Get;
     query: {
       /** Show only certain fields, specified by a comma-separated list of field names. */
       fields?: string;
@@ -6550,6 +6723,7 @@ export namespace Transaction {
    Transactions attached to multi-currency orders are in the presentment currency by default. To retrieve transactions in the shop currency, include the URL parameter in_shop_currency=true.  */
   export type Get = {
     path: `orders/${OrderId}/transactions`;
+    method: Method.Get;
     query: {
       /** Show only certain fields, specifed by a comma-separated list of fields names. */
       fields?: string;
@@ -6569,6 +6743,7 @@ export namespace GiftCard {
   /** Creates a gift card  */
   export type Create = {
     path: `gift_cards`;
+    method: Method.Post;
     body: {
       gift_card: Omit<_GiftCard, "admin_graphql_api_id">;
     };
@@ -6580,6 +6755,7 @@ export namespace GiftCard {
   /** Retrieves a single gift card by its ID  */
   export type GetById = {
     path: `gift_cards/${GiftCardId}`;
+    method: Method.Get;
     response: {
       gift_card: _GiftCard;
     };
@@ -6589,6 +6765,7 @@ export namespace GiftCard {
    The gift card's balance can't be changed via the API. You can change only the expiry date, note, and template suffix.  */
   export type UpdateById = {
     path: `gift_cards/${GiftCardId}`;
+    method: Method.Put;
     body: {
       gift_card: Omit<_GiftCard, "admin_graphql_api_id">;
     };
@@ -6600,6 +6777,7 @@ export namespace GiftCard {
   /** Retrieves a count of gift cards  */
   export type Count = {
     path: `gift_cards/count`;
+    method: Method.Get;
     query: {
       /** Count gift cards with a given status. Valid values: */
       status?: string;
@@ -6612,6 +6790,7 @@ export namespace GiftCard {
   /** Disables a gift card. Disabling a gift card can't be undone.  */
   export type DisableById = {
     path: `gift_cards/${GiftCardId}/disable`;
+    method: Method.Post;
     body: {
       gift_card: Omit<_GiftCard, "admin_graphql_api_id">;
     };
@@ -6623,6 +6802,7 @@ export namespace GiftCard {
   /** Retrieves a list of gift cards. Note: As of version 2019-10, this endpoint implements pagination by using links that are provided in the response header. Sending the page parameter will return an error. To learn more, see Making requests to paginated REST Admin API endpoints.  */
   export type Get = {
     path: `gift_cards`;
+    method: Method.Get;
     query: {
       /** Show only certain fields, specified by a comma-separated list of field names. */
       fields?: string;
@@ -6650,6 +6830,7 @@ export namespace GiftCard {
    Note: As of version 2019-10, this endpoint implements pagination by using links that are provided in the response header. Sending the page parameter will return an error. To learn more, see Making requests to paginated REST Admin API endpoints.  */
   export type Search = {
     path: `gift_cards/search`;
+    method: Method.Get;
     query: {
       /** Show only certain fields, specified by a comma-separated list of field names. */
       fields?: string;
@@ -6671,6 +6852,7 @@ export namespace User {
   /** Retrieves a single user  */
   export type GetById = {
     path: `users/${UserId}`;
+    method: Method.Get;
     response: {
       user: _User;
     };
@@ -6679,6 +6861,7 @@ export namespace User {
   /** Retrieves information about the user account associated with the access token used to make this API request. This request works only when the access token was created for a specific user of the shop.  */
   export type Current = {
     path: `users/current`;
+    method: Method.Get;
     response: {
       user: _User;
     };
@@ -6687,6 +6870,7 @@ export namespace User {
   /** Retrieves a list of all users. Note: As of version 2021-01, this endpoint implements pagination by using links that are provided in the response header. Sending the page parameter will return an error. To learn more, see Making requests to paginated REST Admin API endpoints.  */
   export type Get = {
     path: `users`;
+    method: Method.Get;
     query: {
       /** The maximum number of results to show on a page. */
       limit?: string;
@@ -6704,6 +6888,7 @@ export namespace Collect {
   /** Adds a product to a custom collection.  */
   export type Create = {
     path: `collects`;
+    method: Method.Post;
     body: {
       collect: Omit<_Collect, "admin_graphql_api_id">;
     };
@@ -6715,11 +6900,13 @@ export namespace Collect {
   /** Removes a product from a collection.  */
   export type DeleteById = {
     path: `collects/${CollectId}`;
+    method: Method.Delete;
   };
 
   /** Retrieves a specific collect by its ID.  */
   export type GetById = {
     path: `collects/${CollectId}`;
+    method: Method.Get;
     query: {
       /** Show only certain fields, specified by a comma-separated list of field names. */
       fields?: string;
@@ -6732,6 +6919,7 @@ export namespace Collect {
   /** Retrieves a count of collects.  */
   export type Count = {
     path: `collects/count`;
+    method: Method.Get;
     response: {
       count?: number;
     };
@@ -6740,6 +6928,7 @@ export namespace Collect {
   /** Retrieves a list of collects. Note: As of version 2019-07, this endpoint implements pagination by using links that are provided in the response header. Sending the page parameter will return an error. To learn more, see Making requests to paginated REST Admin API endpoints.  */
   export type Get = {
     path: `collects`;
+    method: Method.Get;
     query: {
       /** Show only certain fields, specified by a comma-separated list of field names. */
       fields?: string;
@@ -6759,6 +6948,7 @@ export namespace Collection {
   /** Retrieves a single collection  */
   export type GetById = {
     path: `collections/${CollectionId}`;
+    method: Method.Get;
     query: {
       /** Show only certain fields, specified by a comma-separated list of field names. */
       fields?: string;
@@ -6771,6 +6961,7 @@ export namespace Collection {
   /** Retrieve a list of products belonging to a collection. Note: As of version 2019-10, this endpoint implements pagination by using links that are provided in the response header. Sending the page parameter will return an error. To learn more, see Making requests to paginated REST Admin API endpoints.. The products returned are sorted by the collection's sort order.  */
   export type ProductsById = {
     path: `collections/${CollectionId}/products`;
+    method: Method.Get;
     query: {
       /** The number of products to retrieve. */
       limit?: string;
@@ -6786,6 +6977,7 @@ export namespace CustomCollection {
   /** Creates a custom collection  */
   export type Create = {
     path: `custom_collections`;
+    method: Method.Post;
     body: {
       custom_collection: Omit<
         _CustomCollection,
@@ -6801,6 +6993,7 @@ export namespace CustomCollection {
   /** Retrieves a count of custom collections  */
   export type Count = {
     path: `custom_collections/count`;
+    method: Method.Get;
     query: {
       /** Count custom collections that include a given product. */
       product_id?: string;
@@ -6825,6 +7018,7 @@ export namespace CustomCollection {
   /** Retrieves a single custom collection  */
   export type GetById = {
     path: `custom_collections/${CustomCollectionId}`;
+    method: Method.Get;
     query: {
       /** Show only certain fields, specified by a comma-separated list of field names. */
       fields?: string;
@@ -6837,6 +7031,7 @@ export namespace CustomCollection {
   /** Updates an existing custom collection  */
   export type UpdateById = {
     path: `custom_collections/${CustomCollectionId}`;
+    method: Method.Put;
     body: {
       custom_collection: Omit<
         _CustomCollection,
@@ -6852,11 +7047,13 @@ export namespace CustomCollection {
   /** Deletes a custom collection  */
   export type DeleteById = {
     path: `custom_collections/${CustomCollectionId}`;
+    method: Method.Delete;
   };
 
   /** Retrieves a list of custom collections. Note: As of version 2019-10, this endpoint implements pagination by using links that are provided in the response header. Sending the page parameter will return an error. To learn more, see Making requests to paginated REST Admin API endpoints.  */
   export type Get = {
     path: `custom_collections`;
+    method: Method.Get;
     query: {
       /** Show only certain fields, specified by a comma-separated list of field names. */
       fields?: string;
@@ -6894,6 +7091,7 @@ export namespace Product {
   /** Create a new product  */
   export type Create = {
     path: `products`;
+    method: Method.Post;
     body: {
       product: Omit<
         _Product,
@@ -6909,6 +7107,7 @@ export namespace Product {
   /** Retrieve a count of products.  */
   export type Count = {
     path: `products/count`;
+    method: Method.Get;
     query: {
       /** Return products by product collection ID. */
       collection_id?: string;
@@ -6939,6 +7138,7 @@ export namespace Product {
   /** Retrieve a single product.  */
   export type GetById = {
     path: `products/${ProductId}`;
+    method: Method.Get;
     query: {
       /** A comma-separated list of fields to include in the response. */
       fields?: string;
@@ -6951,6 +7151,7 @@ export namespace Product {
   /** Update a product  */
   export type UpdateById = {
     path: `products/${ProductId}`;
+    method: Method.Put;
     body: {
       product: Omit<
         _Product,
@@ -6966,11 +7167,13 @@ export namespace Product {
   /** Deletes a product.  */
   export type DeleteById = {
     path: `products/${ProductId}`;
+    method: Method.Delete;
   };
 
   /** Retrieve a list of products.  */
   export type Get = {
     path: `products`;
+    method: Method.Get;
     query: {
       /** Return products by product collection ID. */
       collection_id?: string;
@@ -7020,6 +7223,7 @@ export namespace ProductImage {
   /** Create a new product image  */
   export type Create = {
     path: `products/${ProductId}/images`;
+    method: Method.Post;
     body: {
       image: Omit<_Image, "admin_graphql_api_id">;
     };
@@ -7031,6 +7235,7 @@ export namespace ProductImage {
   /** Get a count of all product images  */
   export type Count = {
     path: `products/${ProductId}/images/count`;
+    method: Method.Get;
     query: {
       /** Restrict results to after the specified ID */
       since_id?: string;
@@ -7043,6 +7248,7 @@ export namespace ProductImage {
   /** Get a single product image by id  */
   export type GetById = {
     path: `products/${ProductId}/images/${ImageId}`;
+    method: Method.Get;
     query: {
       /** comma-separated list of fields to include in the response */
       fields?: string;
@@ -7055,6 +7261,7 @@ export namespace ProductImage {
   /** Modify an existing product image  */
   export type UpdateById = {
     path: `products/${ProductId}/images/${ImageId}`;
+    method: Method.Put;
     body: {
       image: Omit<_Image, "admin_graphql_api_id">;
     };
@@ -7065,11 +7272,13 @@ export namespace ProductImage {
 
   export type DeleteById = {
     path: `products/${ProductId}/images/${ImageId}`;
+    method: Method.Delete;
   };
 
   /** Get all product images  */
   export type Get = {
     path: `products/${ProductId}/images`;
+    method: Method.Get;
     query: {
       /** comma-separated list of fields to include in the response */
       fields?: string;
@@ -7087,6 +7296,7 @@ export namespace ProductVariant {
   /** Creates a new product variant  */
   export type Create = {
     path: `products/${ProductId}/variants`;
+    method: Method.Post;
     body: {
       variant: Omit<
         _Variant,
@@ -7101,6 +7311,7 @@ export namespace ProductVariant {
   /** Retrieves a count of product variants  */
   export type Count = {
     path: `products/${ProductId}/variants/count`;
+    method: Method.Get;
     response: {
       count?: number;
     };
@@ -7109,6 +7320,7 @@ export namespace ProductVariant {
   /** Retrieves a single product variant by ID  */
   export type GetById = {
     path: `variants/${VariantId}`;
+    method: Method.Get;
     query: {
       /** A comma-separated list of fields to include in the response */
       fields?: string;
@@ -7121,6 +7333,7 @@ export namespace ProductVariant {
   /** Updates an existing product variant  */
   export type UpdateById = {
     path: `variants/${VariantId}`;
+    method: Method.Put;
     body: {
       variant: Omit<
         _Variant,
@@ -7134,11 +7347,13 @@ export namespace ProductVariant {
 
   export type DeleteById = {
     path: `products/${ProductId}/variants/${VariantId}`;
+    method: Method.Delete;
   };
 
   /** Retrieves a list of product variants. Note: As of version 2019-10, this endpoint implements pagination by using links that are provided in the response header. Sending the page parameter will return an error. To learn more, see Making requests to paginated REST Admin API endpoints.  */
   export type Get = {
     path: `products/${ProductId}/variants`;
+    method: Method.Get;
     query: {
       /** A comma-separated list of fields to include in the response */
       fields?: string;
@@ -7160,6 +7375,7 @@ export namespace SmartCollection {
   /** Creates a new smart collection using the specified rules.  */
   export type Create = {
     path: `smart_collections`;
+    method: Method.Post;
     body: {
       smart_collection: Omit<
         _Collection,
@@ -7175,6 +7391,7 @@ export namespace SmartCollection {
   /** Retrieves a count of smart collections  */
   export type Count = {
     path: `smart_collections/count`;
+    method: Method.Get;
     query: {
       /** Show smart collections that include the specified product. */
       product_id?: string;
@@ -7199,6 +7416,7 @@ export namespace SmartCollection {
   /** Retrieves a single smart collection  */
   export type GetById = {
     path: `smart_collections/${SmartCollectionId}`;
+    method: Method.Get;
     query: {
       /** Show only certain fields, specified by a comma-separated list of field names. */
       fields?: string;
@@ -7211,6 +7429,7 @@ export namespace SmartCollection {
   /** Updates an existing smart collection  */
   export type UpdateById = {
     path: `smart_collections/${SmartCollectionId}`;
+    method: Method.Put;
     body: {
       smart_collection: Omit<
         _Collection,
@@ -7226,11 +7445,13 @@ export namespace SmartCollection {
   /** Removes a smart collection  */
   export type DeleteById = {
     path: `smart_collections/${SmartCollectionId}`;
+    method: Method.Delete;
   };
 
   /** Updates the ordering type of products in a smart collection  */
   export type Order = {
     path: `smart_collections/${SmartCollectionId}/order`;
+    method: Method.Put;
     query: {
       /** An array of product IDs, in the order that you want them to appear at the top of the collection. When products is specified but empty, any previously sorted products are cleared. */
       products?: string;
@@ -7242,6 +7463,7 @@ export namespace SmartCollection {
   /** Retrieves a list of smart collections. Note: As of version 2019-10, this endpoint implements pagination by using links that are provided in the response header. To learn more, see Making requests to paginated REST Admin API endpoints.  */
   export type Get = {
     path: `smart_collections`;
+    method: Method.Get;
     query: {
       /** Show only certain fields, specified by a comma-separated list of field names. */
       fields?: string;
@@ -7279,6 +7501,7 @@ export namespace Checkout {
   /** Creates a checkout  */
   export type Create = {
     path: `checkouts`;
+    method: Method.Post;
     body: {
       checkout: Omit<
         _Checkout,
@@ -7311,6 +7534,7 @@ export namespace Checkout {
   /** Completes a checkout  */
   export type CompleteById = {
     path: `checkouts/${Token}/complete`;
+    method: Method.Post;
     response: {
       checkout: _Checkout;
     };
@@ -7319,6 +7543,7 @@ export namespace Checkout {
   /** Retrieves a checkout  */
   export type GetById = {
     path: `checkouts/${Token}`;
+    method: Method.Get;
     response: {
       checkout: _Checkout;
     };
@@ -7327,6 +7552,7 @@ export namespace Checkout {
   /** Modifies an existing checkout  */
   export type UpdateById = {
     path: `checkouts/${Token}`;
+    method: Method.Put;
     body: {
       checkout: Omit<
         _Checkout,
@@ -7361,6 +7587,7 @@ export namespace Checkout {
    To apply a shipping rate, update the checkout's shipping line with the handle of the selected rate.  */
   export type ShippingRatesById = {
     path: `checkouts/${Token}/shipping_rates`;
+    method: Method.Get;
     response: {
       shipping_rates: _ShippingRate;
     };
@@ -7372,6 +7599,7 @@ export namespace CollectionListing {
   /** Retrieve a specific collection listing that is published to your app  */
   export type GetById = {
     path: `collection_listings/${CollectionListingId}`;
+    method: Method.Get;
     response: {
       collection_listing: _CollectionListing;
     };
@@ -7380,6 +7608,7 @@ export namespace CollectionListing {
   /** Create a collection listing to publish a collection to your app  */
   export type UpdateById = {
     path: `collection_listings/${CollectionListingId}`;
+    method: Method.Put;
     body: {
       collection_listing: Omit<
         _CollectionListing,
@@ -7403,11 +7632,13 @@ export namespace CollectionListing {
   /** Delete a collection listing to unpublish a collection from your app  */
   export type DeleteById = {
     path: `collection_listings/${CollectionListingId}`;
+    method: Method.Delete;
   };
 
   /** Retrieve collection listings that are published to your app. Note: As of version 2019-07, this endpoint implements pagination by using links that are provided in the response header. Sending the page parameter will return an error. To learn more, see Making requests to paginated REST Admin API endpoints.  */
   export type Get = {
     path: `collection_listings`;
+    method: Method.Get;
     query: {
       /** Amount of results */
       limit?: string;
@@ -7420,6 +7651,7 @@ export namespace CollectionListing {
   /** Retrieve product_ids that are published to a collection_id.       Note: As of version 2019-07, this endpoint implements pagination by using links that are provided in the response header. Sending the page parameter will return an error. To learn more, see Making requests to paginated REST Admin API endpoints.  */
   export type ProductIdsById = {
     path: `collection_listings/${CollectionListingId}/product_ids`;
+    method: Method.Get;
     query: {
       /** Amount of results */
       limit?: string;
@@ -7435,6 +7667,7 @@ export namespace MobilePlatformApplication {
   /** Create a mobile platform application  */
   export type Create = {
     path: `mobile_platform_applications`;
+    method: Method.Post;
     body: {
       mobile_platform_application: Omit<_MobilePlatformApplication, "admin_graphql_api_id">;
     };
@@ -7446,6 +7679,7 @@ export namespace MobilePlatformApplication {
   /** Get a mobile platform application  */
   export type GetById = {
     path: `mobile_platform_applications/${MobilePlatformApplicationId}`;
+    method: Method.Get;
     response: {
       mobile_platform_application: _MobilePlatformApplication;
     };
@@ -7454,6 +7688,7 @@ export namespace MobilePlatformApplication {
   /** Update a mobile platform application  */
   export type UpdateById = {
     path: `mobile_platform_applications/${MobilePlatformApplicationId}`;
+    method: Method.Put;
     body: {
       mobile_platform_application: Omit<_MobilePlatformApplication, "admin_graphql_api_id">;
     };
@@ -7465,11 +7700,13 @@ export namespace MobilePlatformApplication {
   /** Delete a mobile platform application  */
   export type DeleteById = {
     path: `mobile_platform_applications/${MobilePlatformApplicationId}`;
+    method: Method.Delete;
   };
 
   /** List the mobile platform applications  */
   export type Get = {
     path: `mobile_platform_applications`;
+    method: Method.Get;
     response: {
       mobile_platform_applications: _MobilePlatformApplication;
     };
@@ -7481,6 +7718,7 @@ export namespace Payment {
   /** Creates a payment on a checkout using the session ID returned by the card vault  */
   export type Create = {
     path: `checkouts/${Token}/payments`;
+    method: Method.Post;
     query: {
       /** The amount of the payment. */
       amount?: string;
@@ -7502,6 +7740,7 @@ export namespace Payment {
   /** Retrieves the payment information for an existing payment  */
   export type GetById = {
     path: `checkouts/${Token}/payments/${PaymentId}`;
+    method: Method.Get;
     response: {
       payment: _Payment;
     };
@@ -7510,6 +7749,7 @@ export namespace Payment {
   /** Counts the number of payments attempted on a checkout  */
   export type Count = {
     path: `checkouts/${Token}/payments/count`;
+    method: Method.Get;
     response: {
       count?: number;
     };
@@ -7518,6 +7758,7 @@ export namespace Payment {
   /** Retrieves a list of payments on a particular checkout  */
   export type Get = {
     path: `checkouts/${Token}/payments`;
+    method: Method.Get;
     response: {
       payments: _Payment;
     };
@@ -7528,6 +7769,7 @@ export namespace ProductResourceFeedback {
   /** Create product feedback.  */
   export type Create = {
     path: `products/${ProductId}/resource_feedback`;
+    method: Method.Post;
     query: {
       /** Create feedback for a specific product, using its product id. */
       product_id?: string;
@@ -7544,6 +7786,7 @@ export namespace ProductResourceFeedback {
   /** Retrieve all product feedback from your app associated with the product.  */
   export type Get = {
     path: `products/${ProductId}/resource_feedback`;
+    method: Method.Get;
     query: {
       /** Retrieve feedback for a specific product, by product id. */
       product_id?: string;
@@ -7559,6 +7802,7 @@ export namespace ProductListing {
   /** Retrieve a count of products that are published to your app  */
   export type Count = {
     path: `product_listings/count`;
+    method: Method.Get;
     response: {
       count?: number;
     };
@@ -7567,6 +7811,7 @@ export namespace ProductListing {
   /** Retrieve a specific product listing that is published to your app  */
   export type GetById = {
     path: `product_listings/${ProductListingId}`;
+    method: Method.Get;
     response: {
       product_listing: _ProductListing;
     };
@@ -7575,6 +7820,7 @@ export namespace ProductListing {
   /** Create a product listing to publish a product to your app  */
   export type UpdateById = {
     path: `product_listings/${ProductListingId}`;
+    method: Method.Put;
     body: {
       product_listing: Omit<
         _ProductListing,
@@ -7602,11 +7848,13 @@ export namespace ProductListing {
   /** Delete a product listing to unpublish a product from your app  */
   export type DeleteById = {
     path: `product_listings/${ProductListingId}`;
+    method: Method.Delete;
   };
 
   /** Retrieve product listings that are published to your app. Note: As of version 2019-07, this endpoint implements pagination by using links that are provided in the response header. Sending the page parameter will return an error. To learn more, see Making requests to paginated REST Admin API endpoints.  */
   export type Get = {
     path: `product_listings`;
+    method: Method.Get;
     query: {
       /** Filter by products belonging to a particular collection */
       collection_id?: string;
@@ -7627,6 +7875,7 @@ export namespace ProductListing {
   /** Retrieve product_ids that are published to your app. Maximum 1,000 results per page.  */
   export type ProductIds = {
     path: `product_listings/product_ids`;
+    method: Method.Get;
     query: {
       /** Amount of results */
       limit?: string;
@@ -7641,6 +7890,7 @@ export namespace ResourceFeedback {
   /** Creates shop resource feedback.  */
   export type Create = {
     path: `resource_feedback`;
+    method: Method.Post;
     query: {
       /** An ISO 8601 date and time indicating when the feedback was generated by your app. */
       feedback_generated_at?: string;
@@ -7666,6 +7916,7 @@ export namespace ResourceFeedback {
    */
   export type Get = {
     path: `resource_feedback`;
+    method: Method.Get;
     response: {
       resource_feedback: _ResourceFeedback;
     };
@@ -7676,6 +7927,7 @@ export namespace AssignedFulfillmentOrder {
   /** Retrieves a list of fulfillment orders on a shop for a specific app.  */
   export type Get = {
     path: `assigned_fulfillment_orders`;
+    method: Method.Get;
     query: {
       /** The assigment status of the fulfillment orders that should be returned: */
       assignment_status?: string;
@@ -7693,6 +7945,7 @@ export namespace CancellationRequest {
   /** Sends a cancellation request to the fulfillment service of a fulfillment order.  */
   export type CancellationRequestById = {
     path: `fulfillment_orders/${FulfillmentOrderId}/cancellation_request`;
+    method: Method.Post;
     query: {
       /** An optional reason for the cancellation request. */
       message?: string;
@@ -7708,6 +7961,7 @@ export namespace CancellationRequest {
   /** Accepts a cancellation request sent to a fulfillment service for a fulfillment order.  */
   export type CancellationRequestAccept = {
     path: `fulfillment_orders/${FulfillmentOrderId}/cancellation_request/accept`;
+    method: Method.Post;
     query: {
       /** An optional reason for accepting the cancellation request. */
       message?: string;
@@ -7723,6 +7977,7 @@ export namespace CancellationRequest {
   /** Rejects a cancellation request sent to a fulfillment service for a fulfillment order.  */
   export type CancellationRequestReject = {
     path: `fulfillment_orders/${FulfillmentOrderId}/cancellation_request/reject`;
+    method: Method.Post;
     query: {
       /** An optional reason for rejecting the cancellation request. */
       message?: string;
@@ -7741,6 +7996,7 @@ export namespace CarrierService {
   /** Creates a carrier service  */
   export type Create = {
     path: `carrier_services`;
+    method: Method.Post;
     body: {
       carrier_service: Omit<_CarrierService, "admin_graphql_api_id">;
     };
@@ -7752,6 +8008,7 @@ export namespace CarrierService {
   /** Updates a carrier service. Only the app that creates a carrier service can update it.  */
   export type UpdateById = {
     path: `carrier_services/${CarrierServiceId}`;
+    method: Method.Put;
     body: {
       carrier_service: Omit<_CarrierService, "admin_graphql_api_id">;
     };
@@ -7763,6 +8020,7 @@ export namespace CarrierService {
   /** Retrieves a single carrier service by its ID  */
   export type GetById = {
     path: `carrier_services/${CarrierServiceId}`;
+    method: Method.Get;
     response: {
       carrier_service: _CarrierService;
     };
@@ -7771,11 +8029,13 @@ export namespace CarrierService {
   /** Deletes a carrier service  */
   export type DeleteById = {
     path: `carrier_services/${CarrierServiceId}`;
+    method: Method.Delete;
   };
 
   /** Retrieves a list of carrier services  */
   export type Get = {
     path: `carrier_services`;
+    method: Method.Get;
     response: {
       carrier_services: _CarrierService;
     };
@@ -7801,6 +8061,7 @@ export namespace Fulfillment {
    */
   export type CreateByOrderId = {
     path: `orders/${OrderId}/fulfillments`;
+    method: Method.Post;
     body: {
       fulfillment: Omit<_Fulfillment, "admin_graphql_api_id">;
     };
@@ -7812,6 +8073,7 @@ export namespace Fulfillment {
   /** Retrieves a count of fulfillments associated with a specific order  */
   export type Count = {
     path: `orders/${OrderId}/fulfillments/count`;
+    method: Method.Get;
     query: {
       /** Count fulfillments created before date (format: 2014-04-25T16:15:47-04:00). */
       created_at_max?: string;
@@ -7830,6 +8092,7 @@ export namespace Fulfillment {
   /** Retrieve a specific fulfillment  */
   export type GetById = {
     path: `orders/${OrderId}/fulfillments/${FulfillmentId}`;
+    method: Method.Get;
     query: {
       /** Comma-separated list of fields to include in the response. */
       fields?: string;
@@ -7842,6 +8105,7 @@ export namespace Fulfillment {
   /** Update information associated with a fulfillment  */
   export type UpdateById = {
     path: `orders/${OrderId}/fulfillments/${FulfillmentId}`;
+    method: Method.Put;
     body: {
       fulfillment: Omit<_Fulfillment, "admin_graphql_api_id">;
     };
@@ -7853,6 +8117,7 @@ export namespace Fulfillment {
   /** Creates a fulfillment for one or many fulfillment orders. The fulfillment orders are associated with the same order and are assigned to the same location.  */
   export type Create = {
     path: `fulfillments`;
+    method: Method.Post;
     body: {
       fulfillment: Omit<_Fulfillment, "admin_graphql_api_id">;
     };
@@ -7864,6 +8129,7 @@ export namespace Fulfillment {
   /** Updates the tracking information for a fulfillment.  */
   export type UpdateTrackingById = {
     path: `fulfillments/${FulfillmentId}/update_tracking`;
+    method: Method.Post;
     body: {
       fulfillment: Omit<_Fulfillment, "admin_graphql_api_id">;
     };
@@ -7875,6 +8141,7 @@ export namespace Fulfillment {
   /** Mark a fulfillment as complete  */
   export type CompleteById = {
     path: `orders/${OrderId}/fulfillments/${FulfillmentId}/complete`;
+    method: Method.Post;
     response: {
       fulfillment: _Fulfillment;
     };
@@ -7883,6 +8150,7 @@ export namespace Fulfillment {
   /** Mark a fulfillment as open  */
   export type OpenById = {
     path: `orders/${OrderId}/fulfillments/${FulfillmentId}/open`;
+    method: Method.Post;
     response: {
       fulfillment: _Fulfillment;
     };
@@ -7891,6 +8159,7 @@ export namespace Fulfillment {
   /** Cancel a fulfillment for a specific order ID  */
   export type CancelSpecificById = {
     path: `orders/${OrderId}/fulfillments/${FulfillmentId}/cancel`;
+    method: Method.Post;
     response: {
       fulfillment: _Fulfillment;
     };
@@ -7899,6 +8168,7 @@ export namespace Fulfillment {
   /** Cancels a fulfillment.  */
   export type CancelById = {
     path: `fulfillments/${FulfillmentId}/cancel`;
+    method: Method.Post;
     response: {
       fulfillment: _Fulfillment;
     };
@@ -7907,6 +8177,7 @@ export namespace Fulfillment {
   /** Retrieves fulfillments associated with an order. Note: As of version 2019-10, this endpoint implements pagination by using links that are provided in the response header. Sending the page parameter will return an error. To learn more, see Making requests to paginated REST Admin API endpoints.  */
   export type Get = {
     path: `orders/${OrderId}/fulfillments`;
+    method: Method.Get;
     query: {
       /** Show fulfillments created before date (format: 2014-04-25T16:15:47-04:00). */
       created_at_max?: string;
@@ -7931,6 +8202,7 @@ export namespace Fulfillment {
   /** Retrieves fulfillments associated with a fulfillment order.  */
   export type GetFulfillmentOrdersById = {
     path: `fulfillment_orders/${FulfillmentOrderId}/fulfillments`;
+    method: Method.Get;
     query: {
       /** The ID of the fulfillment order that is associated with the fulfillments. */
       fulfillment_order_id?: string;
@@ -7945,6 +8217,7 @@ export namespace FulfillmentEvent {
   /** Creates a fulfillment event  */
   export type Create = {
     path: `orders/${OrderId}/fulfillments/${FulfillmentId}/events`;
+    method: Method.Post;
     body: {
       event: _Event;
     };
@@ -7956,6 +8229,7 @@ export namespace FulfillmentEvent {
   /** Retrieves a specific fulfillment event  */
   export type GetById = {
     path: `orders/${OrderId}/fulfillments/${FulfillmentId}/events/${EventId}`;
+    method: Method.Get;
     query: {
       /** The ID of the fulfillment event. */
       event_id?: string;
@@ -7968,11 +8242,13 @@ export namespace FulfillmentEvent {
   /** Deletes a fulfillment event  */
   export type DeleteById = {
     path: `orders/${OrderId}/fulfillments/${FulfillmentId}/events/${EventId}`;
+    method: Method.Delete;
   };
 
   /** Retrieves a list of fulfillment events for a specific fulfillment  */
   export type Get = {
     path: `orders/${OrderId}/fulfillments/${FulfillmentId}/events`;
+    method: Method.Get;
     query: {
       /** The ID of the fulfillment that's associated with the fulfillment event. */
       fulfillment_id?: string;
@@ -7989,6 +8265,7 @@ export namespace FulfillmentOrder {
   /** Retrieves a specific fulfillment order.  */
   export type GetById = {
     path: `fulfillment_orders/${FulfillmentOrderId}`;
+    method: Method.Get;
     response: {
       fulfillment_order: _FulfillmentOrder;
     };
@@ -7997,6 +8274,7 @@ export namespace FulfillmentOrder {
   /** Marks a fulfillment order as cancelled.  */
   export type CancelById = {
     path: `fulfillment_orders/${FulfillmentOrderId}/cancel`;
+    method: Method.Post;
     response: {
       fulfillment_order: _FulfillmentOrder;
       replacement_fulfillment_order: _ReplacementFulfillmentOrder;
@@ -8007,6 +8285,7 @@ export namespace FulfillmentOrder {
    is unable to ship any remaining items and intends to close the fulfillment order.  */
   export type CloseById = {
     path: `fulfillment_orders/${FulfillmentOrderId}/close`;
+    method: Method.Post;
     query: {
       /** An optional reason for marking the fulfillment order as incomplete. */
       message?: string;
@@ -8022,6 +8301,7 @@ export namespace FulfillmentOrder {
   /** Moves a fulfillment order from one merchant managed location to another merchant managed location.  */
   export type MoveById = {
     path: `fulfillment_orders/${FulfillmentOrderId}/move`;
+    method: Method.Post;
     query: {
       /** The id of the location to which the fulfillment order will be moved. */
       new_location_id?: string;
@@ -8040,6 +8320,7 @@ export namespace FulfillmentOrder {
    This endpoint allows merchants to work on a scheduled fulfillment order before its expected fulfill_at datetime.  */
   export type OpenById = {
     path: `fulfillment_orders/${FulfillmentOrderId}/open`;
+    method: Method.Post;
     response: {
       fulfillment_order: _FulfillmentOrder;
     };
@@ -8049,6 +8330,7 @@ export namespace FulfillmentOrder {
    This endpoint is used to manage the time a scheduled fulfillment order will be marked as ready for fulfillment.  */
   export type RescheduleById = {
     path: `fulfillment_orders/${FulfillmentOrderId}/reschedule`;
+    method: Method.Post;
     body: {
       fulfillment_order: Omit<_FulfillmentOrder, "admin_graphql_api_id">;
     };
@@ -8061,6 +8343,7 @@ export namespace FulfillmentOrder {
    and changes the status of the fulfillment order to ON_HOLD.  */
   export type HoldById = {
     path: `fulfillment_orders/${FulfillmentOrderId}/hold`;
+    method: Method.Post;
     query: {
       /** Whether the merchant should receive a notification about the fulfillment hold. If set to true, then the merchant will be notified on the Shopify mobile app (if they use it to manage their store). The default value is false. */
       notify_merchant?: string;
@@ -8081,6 +8364,7 @@ export namespace FulfillmentOrder {
    of the fulfillment order to OPEN or SCHEDULED  */
   export type ReleaseHoldById = {
     path: `fulfillment_orders/${FulfillmentOrderId}/release_hold`;
+    method: Method.Post;
     response: {
       fulfillment_order: _FulfillmentOrder;
     };
@@ -8089,6 +8373,7 @@ export namespace FulfillmentOrder {
   /** Retrieves a list of fulfillment orders for a specific order.  */
   export type Get = {
     path: `orders/${OrderId}/fulfillment_orders`;
+    method: Method.Get;
     query: {
       /** The ID of the order that is associated with the fulfillment orders. */
       order_id?: string;
@@ -8103,6 +8388,7 @@ export namespace FulfillmentRequest {
   /** Sends a fulfillment request to the fulfillment service of a fulfillment order.  */
   export type FulfillmentRequestById = {
     path: `fulfillment_orders/${FulfillmentOrderId}/fulfillment_request`;
+    method: Method.Post;
     query: {
       /** The fulfillment order line items to be requested for fulfillment. If left blank, all line items of the fulfillment order are requested for fulfillment. */
       fulfillment_order_line_items?: string;
@@ -8125,6 +8411,7 @@ export namespace FulfillmentRequest {
   /** Accepts a fulfillment request sent to a fulfillment service for a fulfillment order.  */
   export type FulfillmentRequestAccept = {
     path: `fulfillment_orders/${FulfillmentOrderId}/fulfillment_request/accept`;
+    method: Method.Post;
     query: {
       /** An optional reason for accepting the fulfillment request. */
       message?: string;
@@ -8143,6 +8430,7 @@ export namespace FulfillmentRequest {
   /** Rejects a fulfillment request sent to a fulfillment service for a fulfillment order.  */
   export type FulfillmentRequestReject = {
     path: `fulfillment_orders/${FulfillmentOrderId}/fulfillment_request/reject`;
+    method: Method.Post;
     query: {
       /** An optional reason for rejecting the fulfillment request. */
       message?: string;
@@ -8168,6 +8456,7 @@ export namespace FulfillmentService {
    Replace {token} with the OAuth token given to you by Shopify and https://{shop}.myshopify.com/admin/fulfillment_services with your store's URL.  */
   export type Create = {
     path: `fulfillment_services`;
+    method: Method.Post;
     body: {
       fulfillment_service: Omit<_FulfillmentService, "admin_graphql_api_id">;
     };
@@ -8178,6 +8467,7 @@ export namespace FulfillmentService {
 
   export type GetById = {
     path: `fulfillment_services/${FulfillmentServiceId}`;
+    method: Method.Get;
     response: {
       fulfillment_service: _FulfillmentService;
     };
@@ -8185,6 +8475,7 @@ export namespace FulfillmentService {
 
   export type UpdateById = {
     path: `fulfillment_services/${FulfillmentServiceId}`;
+    method: Method.Put;
     body: {
       fulfillment_service: Omit<_FulfillmentService, "admin_graphql_api_id">;
     };
@@ -8195,10 +8486,12 @@ export namespace FulfillmentService {
 
   export type DeleteById = {
     path: `fulfillment_services/${FulfillmentServiceId}`;
+    method: Method.Delete;
   };
 
   export type Get = {
     path: `fulfillment_services`;
+    method: Method.Get;
     query: {
       scope?: string;
     };
@@ -8213,6 +8506,7 @@ export namespace LocationsForMove {
    The resulting list is sorted alphabetically in ascending order by location name.  */
   export type Get = {
     path: `fulfillment_orders/${FulfillmentOrderId}/locations_for_move`;
+    method: Method.Get;
     query: {
       /** The ID of the fulfillment order. */
       fulfillment_order_id?: string;
@@ -8227,6 +8521,7 @@ export namespace Balance {
   /** Retrieves the account's current balance.  */
   export type Get = {
     path: `shopify_payments/balance`;
+    method: Method.Get;
     response: {
       balance: _Balance;
     };
@@ -8238,6 +8533,7 @@ export namespace Dispute {
   /** Retrieves a single dispute by ID.  */
   export type GetById = {
     path: `shopify_payments/disputes/${DisputeId}`;
+    method: Method.Get;
     response: {
       dispute: _Dispute;
     };
@@ -8247,6 +8543,7 @@ export namespace Dispute {
    Note: As of version 2019-10, this endpoint implements pagination by using links that are provided in the response header. Sending the page parameter will return an error. To learn more, see Making requests to paginated REST Admin API endpoints.  */
   export type Get = {
     path: `shopify_payments/disputes`;
+    method: Method.Get;
     query: {
       /** Return only disputes with the specified initiated_at date (ISO 8601 format). */
       initiated_at?: string;
@@ -8268,6 +8565,7 @@ export namespace Payouts {
   /** Retrieves a single payout by id.  */
   export type GetById = {
     path: `shopify_payments/payouts/${PayoutId}`;
+    method: Method.Get;
     response: {
       payout: _Payout;
     };
@@ -8277,6 +8575,7 @@ export namespace Payouts {
    Note: As of version 2019-10, this endpoint implements pagination by using links that are provided in the response header. Sending the page parameter will return an error. To learn more, see Making requests to paginated REST Admin API endpoints.  */
   export type Get = {
     path: `shopify_payments/payouts`;
+    method: Method.Get;
     query: {
       /** Filter the response to payouts made on the specified date. */
       date?: string;
@@ -8305,6 +8604,7 @@ export namespace Country {
    Creates a country.  */
   export type Create = {
     path: `countries`;
+    method: Method.Post;
     body: {
       country: Omit<_Country, "admin_graphql_api_id">;
     };
@@ -8316,6 +8616,7 @@ export namespace Country {
   /** Retrieves a count of countries.  */
   export type Count = {
     path: `countries/count`;
+    method: Method.Get;
     response: {
       count?: number;
     };
@@ -8324,6 +8625,7 @@ export namespace Country {
   /** Retrieves a specific county.  */
   export type GetById = {
     path: `countries/${CountryId}`;
+    method: Method.Get;
     query: {
       /** Show only certain fields, specified by a comma-separated list of field names. */
       fields?: string;
@@ -8339,6 +8641,7 @@ export namespace Country {
    Updates an existing country.  */
   export type UpdateById = {
     path: `countries/${CountryId}`;
+    method: Method.Put;
     body: {
       country: Omit<_Country, "admin_graphql_api_id">;
     };
@@ -8350,11 +8653,13 @@ export namespace Country {
   /** Deletes a country.  */
   export type DeleteById = {
     path: `countries/${CountryId}`;
+    method: Method.Delete;
   };
 
   /** Retrieves a list of countries.  */
   export type Get = {
     path: `countries`;
+    method: Method.Get;
     query: {
       /** Show only certain fields, specified by a comma-separated list of field names. */
       fields?: string;
@@ -8371,6 +8676,7 @@ export namespace Currency {
   /** Retrieves a list of currencies enabled on a shop  */
   export type Get = {
     path: `currencies`;
+    method: Method.Get;
     response: {
       currencies: _Currency;
     };
@@ -8381,6 +8687,7 @@ export namespace Policy {
   /** Retrieves a list of the shop's policies  */
   export type Get = {
     path: `policies`;
+    method: Method.Get;
     response: {
       policies: _Policy;
     };
@@ -8392,6 +8699,7 @@ export namespace Province {
   /** Retrieves a count of provinces for a country  */
   export type Count = {
     path: `countries/${CountryId}/provinces/count`;
+    method: Method.Get;
     response: {
       count?: number;
     };
@@ -8400,6 +8708,7 @@ export namespace Province {
   /** Retrieves a single province for a country  */
   export type GetById = {
     path: `countries/${CountryId}/provinces/${ProvinceId}`;
+    method: Method.Get;
     query: {
       /** Show only certain fields, specified by a comma-separated list of field names. */
       fields?: string;
@@ -8415,6 +8724,7 @@ export namespace Province {
    Updates an existing province for a country.  */
   export type UpdateById = {
     path: `countries/${CountryId}/provinces/${ProvinceId}`;
+    method: Method.Put;
     body: {
       province: Omit<_Province, "admin_graphql_api_id">;
     };
@@ -8426,6 +8736,7 @@ export namespace Province {
   /** Retrieves a list of provinces  */
   export type Get = {
     path: `countries/${CountryId}/provinces`;
+    method: Method.Get;
     query: {
       /** Show only certain fields, specified by a comma-separated list of fields names. */
       fields?: string;
@@ -8442,6 +8753,7 @@ export namespace ShippingZone {
   /** Get a list of all shipping zones  */
   export type Get = {
     path: `shipping_zones`;
+    method: Method.Get;
     query: {
       /** comma-separated list of fields to include in the response */
       fields?: string;
@@ -8456,6 +8768,7 @@ export namespace Shop {
   /** Retrieves the shop's configuration  */
   export type Get = {
     path: `shop`;
+    method: Method.Get;
     query: {
       /** A comma-separated list of fields to include in the response. */
       fields?: string;
@@ -8470,6 +8783,7 @@ export namespace TenderTransaction {
   /** Retrieves a list of tender transactions. Note: As of version 2019-10, this endpoint implements pagination by using links that are provided in the response header. To learn more, see Making requests to paginated REST Admin API endpoints.  */
   export type Get = {
     path: `tender_transactions`;
+    method: Method.Get;
     query: {
       /** The maximum number of results to retrieve. */
       limit?: string;
