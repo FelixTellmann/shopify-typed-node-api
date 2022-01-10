@@ -1,5 +1,3 @@
-import {mergeQuery} from 'src/clients/graphql/mergeQuery';
-
 import {ShopifyHeader} from '../../base_types';
 import {Context} from '../../context';
 import * as ShopifyErrors from '../../error';
@@ -7,6 +5,7 @@ import {MissingRequiredArgument} from '../../error';
 import {HttpClient} from '../http_client/http_client';
 import {DataType, PostRequestParams, RequestReturn} from '../http_client/types';
 
+import {mergeQuery} from './mergeQuery';
 import {GraphqlParams} from './types';
 
 export interface AccessTokenHeader {
