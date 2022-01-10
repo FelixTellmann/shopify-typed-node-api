@@ -1,3 +1,3 @@
 import {PostRequestParams} from '../http_client/types';
 
-export type GraphqlParams = Omit<PostRequestParams, 'path' | 'type'>;
+export type GraphqlParams<T = unknown> = Omit<PostRequestParams<T>, 'path' | 'type'>;

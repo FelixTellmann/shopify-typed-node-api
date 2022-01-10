@@ -1,6 +1,6 @@
 {
   "name": "shopify-typed-node-api",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Shopify API Library for Node - accelerate development with support for authentication, graphql proxy, webhooks",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -37,7 +37,6 @@
     "cookies": "^0.8.0",
     "jsonwebtoken": "^8.5.1",
     "node-fetch": "^2.6.1",
-    "shopify-typed-node-api": "^2.0.1",
     "tslib": "^2.0.3",
     "uuid": "^8.3.1"
   },

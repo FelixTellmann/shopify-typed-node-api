@@ -1,9 +1,9 @@
-import {MissingRequiredArgument} from '../../error';
-import {Context} from '../../context';
 import {ShopifyHeader} from '../../base_types';
-import {HttpClient} from '../http_client/http_client';
-import {DataType, RequestReturn} from '../http_client/types';
+import {Context} from '../../context';
 import * as ShopifyErrors from '../../error';
+import {MissingRequiredArgument} from '../../error';
+import {HttpClient} from '../http_client/http_client';
+import {DataType, PostRequestParams, RequestReturn} from '../http_client/types';
 
 import {GraphqlParams} from './types';
 
@@ -27,8 +27,8 @@ export class GraphqlClient {
     this.client = new HttpClient(this.domain);
   }
 
-  async query(params: GraphqlParams): Promise<RequestReturn> {
-    if (params.data.length === 0) {
+  async query<T = unknown>(params: GraphqlParams<T>): Promise<RequestReturn<T>> {
+    if (typeof params.data === 'string' && params.data.length === 0 || !params.data) {
       throw new MissingRequiredArgument('Query missing.');
     }
 
@@ -44,19 +44,25 @@ export class GraphqlClient {
 
     if (typeof params.data === 'object') {
       dataType = DataType.JSON;
+      return this.client.post<T>({path, type: dataType, ...params} as
+        (PostRequestParams<T> & {
+          data: {
+            query: string;
+            variables?: { [K: string]: any; };
+          };
+        }));
     } else {
       dataType = DataType.GraphQL;
+      return this.client.post<T>({path, type: dataType, ...params} as PostRequestParams<T>);
     }
-
-    return this.client.post({path, type: dataType, ...params});
   }
 
   protected getAccessTokenHeader(): AccessTokenHeader {
     return {
       header: ShopifyHeader.AccessToken,
       value: Context.IS_PRIVATE_APP
-        ? Context.API_SECRET_KEY
-        : (this.accessToken as string),
+             ? Context.API_SECRET_KEY
+             : (this.accessToken as string),
     };
   }
 }
