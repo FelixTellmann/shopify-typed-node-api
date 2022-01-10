@@ -16,7 +16,7 @@ import {
   WebhookRegistryEntry,
   WebhookCheckResponse,
   WebhookCheckResponseLegacy,
-  ShortenedRegisterOptions,
+  ShortenedRegisterOptions, WebhookTopics,
 } from './types';
 
 interface AddHandlersProps {
@@ -51,7 +51,7 @@ interface RegistryInterface {
   /**
    * Gets all topics
    */
-  getTopics(): string[];
+  getTopics(): WebhookTopics[];
 
   /**
    * Registers a Webhook Handler function for a given topic.
@@ -259,8 +259,8 @@ const WebhooksRegistry: RegistryInterface = {
     return topic in WebhooksRegistry.webhookRegistry ? WebhooksRegistry.webhookRegistry[topic] : null;
   },
 
-  getTopics(): string[] {
-    return Object.keys(WebhooksRegistry.webhookRegistry);
+  getTopics(): WebhookTopics[] {
+    return Object.keys(WebhooksRegistry.webhookRegistry) as WebhookTopics[];
   },
 
   async register({
