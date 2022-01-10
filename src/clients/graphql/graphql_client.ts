@@ -1,3 +1,5 @@
+import {mergeQuery} from 'src/clients/graphql/mergeQuery';
+
 import {ShopifyHeader} from '../../base_types';
 import {Context} from '../../context';
 import * as ShopifyErrors from '../../error';
@@ -45,6 +47,9 @@ export class GraphqlClient {
 
     if (typeof params.data === 'object') {
       dataType = DataType.JSON;
+      if (params.data.query && Array.isArray(params.data.query)) {
+        params.data.query = mergeQuery(params.data.query);
+      }
     } else {
       dataType = DataType.GraphQL;
     }
