@@ -40,18 +40,18 @@ export class GraphqlClient {
 
     const path = `${this.baseApiPath}/${Context.API_VERSION}/graphql.json`;
 
+
     let dataType: DataType.GraphQL | DataType.JSON;
 
     if (typeof params.data === 'object') {
       dataType = DataType.JSON;
-      return this.client.post<T>({path, type: dataType, ...params} as
-        (PostRequestParams<T> & {
-          data: {
-            query: string;
-            variables?: { [K: string]: any; };
-            operationName?: string;
-          };
-        }));
+      return this.client.post<T & {
+        data: {
+          query: string;
+          variables?: { [K: string]: any; };
+          operationName?: string;
+        };
+      }>({path, type: dataType, ...params});
     } else {
       dataType = DataType.GraphQL;
       return this.client.post<T>({path, type: dataType, ...params} as PostRequestParams<T>);

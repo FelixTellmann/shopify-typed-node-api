@@ -11,7 +11,7 @@ export enum DataType {
 
 
 export interface GetRequestParams<T = unknown> {
-  path: T extends { path: string; } ? T['path'] : string;
+  path: (T extends { path: string; } ? T['path'] : string) | string;
   type?: DataType;
   data?: T extends { body: any; } ? T['body'] & Record<string, unknown> | string : Record<string, unknown> | string;
   query?: T extends { query: any; } ? T['query'] & Record<string, string | number>: Record<string, string | number>;
