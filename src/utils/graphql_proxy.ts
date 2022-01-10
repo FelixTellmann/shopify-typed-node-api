@@ -1,5 +1,7 @@
 import http from 'http';
 
+import {GraphqlParams} from 'src/clients/graphql/types';
+
 import {GraphqlClient} from '../clients/graphql';
 import * as ShopifyErrors from '../error';
 
@@ -31,7 +33,13 @@ export default async function graphqlProxy(
     });
 
     userReq.on('end', async () => {
-      let reqBodyObject: Record<string, unknown> | undefined;
+      let reqBodyObject: Record<string, unknown> | undefined | {
+        data: string | {
+          query: string;
+          variables?: { [K: string]: any; };
+          operationName?: string;
+        };
+      };
       try {
         reqBodyObject = JSON.parse(reqBodyString);
       } catch (err) {
@@ -46,7 +54,7 @@ export default async function graphqlProxy(
           data: reqBodyObject ? reqBodyObject : reqBodyString,
         };
         const client = new GraphqlClient(shopName, token);
-        const response = await client.query(options);
+        const response = await client.query(options as GraphqlParams);
         body = response.body;
       } catch (err) {
         switch (err.constructor.name) {

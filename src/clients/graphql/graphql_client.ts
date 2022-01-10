@@ -49,7 +49,7 @@ export class GraphqlClient {
       dataType = DataType.GraphQL;
     }
 
-    return this.client.post<T>({path, type: dataType, ...params});
+    return this.client.post<T>({path, type: dataType, ...params} as PostRequestParams<T>);
   }
 
   protected getAccessTokenHeader(): AccessTokenHeader {
