@@ -49,6 +49,7 @@ export class GraphqlClient {
           data: {
             query: string;
             variables?: { [K: string]: any; };
+            operationName?: string;
           };
         }));
     } else {
