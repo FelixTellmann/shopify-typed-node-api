@@ -45,17 +45,11 @@ export class GraphqlClient {
 
     if (typeof params.data === 'object') {
       dataType = DataType.JSON;
-      return this.client.post<T & {
-        data: {
-          query: string;
-          variables?: { [K: string]: any; };
-          operationName?: string;
-        };
-      }>({path, type: dataType, ...params});
     } else {
       dataType = DataType.GraphQL;
-      return this.client.post<T>({path, type: dataType, ...params} as PostRequestParams<T>);
     }
+
+    return this.client.post<T>({path, type: dataType, ...params});
   }
 
   protected getAccessTokenHeader(): AccessTokenHeader {

@@ -13,7 +13,19 @@ export enum DataType {
 export interface GetRequestParams<T = unknown> {
   path: (T extends { path: string; } ? T['path'] : string) | string;
   type?: DataType;
-  data?: T extends { body: any; } ? T['body'] & Record<string, unknown> | string : Record<string, unknown> | string;
+  data?: T extends { body: any; } ? T['body'] & Record<string, unknown> | string | {
+    data: string | {
+      query: string;
+      variables?: { [K: string]: any; };
+      operationName?: string;
+    };
+  }: Record<string, unknown> | string | {
+    data: string | {
+      query: string;
+      variables?: { [K: string]: any; };
+      operationName?: string;
+    };
+  };
   query?: T extends { query: any; } ? T['query'] & Record<string, string | number>: Record<string, string | number>;
   extraHeaders?: HeaderParams;
   tries?: number;
@@ -21,7 +33,19 @@ export interface GetRequestParams<T = unknown> {
 
 export type PostRequestParams<T = unknown> = GetRequestParams<T> & {
   type: DataType;
-  data: T extends { body: any; } ? T['body'] & Record<string, unknown> | string : Record<string, unknown> | string;
+  data: T extends { body: any; } ? T['body'] & Record<string, unknown> | string | {
+    data: string | {
+      query: string;
+      variables?: { [K: string]: any; };
+      operationName?: string;
+    };
+  } : Record<string, unknown> | string | {
+    data: string | {
+      query: string;
+      variables?: { [K: string]: any; };
+      operationName?: string;
+    };
+  };
 };
 
 export type PutRequestParams<T = unknown> = PostRequestParams<T>;
