@@ -1865,7 +1865,7 @@ export type _Metafield = {
    If value_type is a string, then maximum length: 5,000,000 characters.
    If value_type is an integer, then maximum length: 100,000 characters.
    If value_type is a json_string, then maximum length: 100,000 characters.  */
-  value?: number;
+  value?: string | number | any;
   /** A container for a set of metafields. You need to define a custom namespace
    for your metafields to distinguish them from the metafields used by other apps. Minimum length: 2 characters.
    Maximum length: 20 characters.  */
