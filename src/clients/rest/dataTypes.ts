@@ -3719,7 +3719,7 @@ export namespace AccessScope {
     path: `/admin/oauth/access_scopes`;
     method: Method.Get;
     response: {
-      access_scopes: _AccessScope;
+      access_scopes: _AccessScope[];
     };
   };
 }
@@ -3753,7 +3753,7 @@ export namespace StorefrontAccessToken {
     path: `storefront_access_tokens`;
     method: Method.Get;
     response: {
-      storefront_access_tokens: _StorefrontAccessToken;
+      storefront_access_tokens: _StorefrontAccessToken[];
     };
   };
 }
@@ -3774,7 +3774,7 @@ export namespace Report {
       report: Omit<_Report, "admin_graphql_api_id">;
     };
     response: {
-      report: _Report;
+      report: _Report[];
     };
   };
 
@@ -3821,7 +3821,7 @@ export namespace Report {
       updated_at_min?: string;
     };
     response: {
-      reports: _Report;
+      reports: _Report[];
     };
   };
 }
@@ -3864,7 +3864,7 @@ export namespace ApplicationCharge {
       since_id?: string;
     };
     response: {
-      application_charges: _ApplicationCharge;
+      application_charges: _ApplicationCharge[];
     };
   };
 }
@@ -3905,7 +3905,7 @@ export namespace ApplicationCredit {
       fields?: string;
     };
     response: {
-      application_credits: _ApplicationCredit;
+      application_credits: _ApplicationCredit[];
     };
   };
 }
@@ -3963,7 +3963,7 @@ export namespace RecurringApplicationCharge {
       since_id?: string;
     };
     response: {
-      recurring_application_charges: _RecurringApplicationCharge;
+      recurring_application_charges: _RecurringApplicationCharge[];
     };
   };
 }
@@ -4004,7 +4004,7 @@ export namespace UsageCharge {
       fields?: string;
     };
     response: {
-      usage_charges: _UsageCharge;
+      usage_charges: _UsageCharge[];
     };
   };
 }
@@ -4124,7 +4124,7 @@ export namespace Customer {
       updated_at_min?: string;
     };
     response: {
-      customers: _Customer;
+      customers: _Customer[];
     };
   };
 
@@ -4224,7 +4224,7 @@ export namespace CustomerAddress {
     path: `customers/${CustomerId}/addresses`;
     method: Method.Get;
     response: {
-      addresses: _Address;
+      addresses: _Address[];
     };
   };
 }
@@ -4306,7 +4306,7 @@ export namespace CustomerSavedSearch {
       since_id?: string;
     };
     response: {
-      customer_saved_searches: _CustomerSavedSearch;
+      customer_saved_searches: _CustomerSavedSearch[];
     };
   };
 
@@ -4335,7 +4335,7 @@ export namespace DeprecatedAPIcalls {
     method: Method.Get;
     response: {
       data_updated_at?: Date;
-      deprecated_api_calls: _DeprecatedApiCalls;
+      deprecated_api_calls: _DeprecatedApiCalls[];
     };
   };
 }
@@ -4483,7 +4483,7 @@ export namespace DiscountCode {
     path: `price_rules/${PriceRuleId}/discount_codes`;
     method: Method.Get;
     response: {
-      discount_codes: _DiscountCode;
+      discount_codes: _DiscountCode[];
     };
   };
 
@@ -4577,7 +4577,7 @@ export namespace PriceRule {
       updated_at_min?: string;
     };
     response: {
-      price_rules: _PriceRule;
+      price_rules: _PriceRule[];
     };
   };
 }
@@ -4633,7 +4633,7 @@ export namespace Event {
       verb?: string;
     };
     response: {
-      events: _Event;
+      events: _Event[];
     };
   };
 }
@@ -4743,7 +4743,7 @@ export namespace Webhook {
       updated_at_min?: string;
     };
     response: {
-      webhooks: _Webhook;
+      webhooks: _Webhook[];
     };
   };
 }
@@ -4785,7 +4785,7 @@ export namespace InventoryItem {
       limit?: string;
     };
     response: {
-      inventory_items: _InventoryItem;
+      inventory_items: _InventoryItem[];
     };
   };
 }
@@ -4895,7 +4895,7 @@ export namespace InventoryLevel {
       updated_at_min?: string;
     };
     response: {
-      inventory_levels: _InventoryLevel;
+      inventory_levels: _InventoryLevel[];
     };
   };
 }
@@ -4925,7 +4925,7 @@ export namespace Location {
     path: `locations`;
     method: Method.Get;
     response: {
-      locations: _Location;
+      locations: _Location[];
     };
   };
 
@@ -5008,7 +5008,7 @@ export namespace MarketingEvent {
       offset?: string;
     };
     response: {
-      marketing_events: _MarketingEvent;
+      marketing_events: _MarketingEvent[];
     };
   };
 
@@ -5137,7 +5137,7 @@ export namespace Metafield {
       value_type?: string;
     };
     response: {
-      metafields: _Metafield;
+      metafields: _Metafield[];
     };
   };
 }
@@ -5248,7 +5248,7 @@ export namespace Article {
       updated_at_min?: string;
     };
     response: {
-      articles: _Article;
+      articles: _Article[];
     };
   };
 
@@ -5334,7 +5334,7 @@ export namespace Asset {
       fields?: string;
     };
     response: {
-      assets: _Asset;
+      assets: _Asset[];
     };
   };
 }
@@ -5425,7 +5425,7 @@ export namespace Blog {
       since_id?: string;
     };
     response: {
-      blogs: _Blog;
+      blogs: _Blog[];
     };
   };
 }
@@ -5636,7 +5636,7 @@ export namespace Comment {
       updated_at_min?: string;
     };
     response: {
-      comments: _Comment;
+      comments: _Comment[];
     };
   };
 }
@@ -5744,7 +5744,7 @@ export namespace Page {
       updated_at_min?: string;
     };
     response: {
-      pages: _Page;
+      pages: _Page[];
     };
   };
 }
@@ -5827,7 +5827,7 @@ export namespace Redirect {
       target?: string;
     };
     response: {
-      redirects: _Redirect;
+      redirects: _Redirect[];
     };
   };
 }
@@ -5921,7 +5921,7 @@ export namespace ScriptTag {
       updated_at_min?: string;
     };
     response: {
-      script_tags: _ScriptTag;
+      script_tags: _ScriptTag[];
     };
   };
 }
@@ -6011,7 +6011,7 @@ export namespace Theme {
       fields?: string;
     };
     response: {
-      themes: _Theme;
+      themes: _Theme[];
     };
   };
 }
@@ -6061,7 +6061,7 @@ export namespace Abandonedcheckouts {
       updated_at_min?: string;
     };
     response: {
-      checkouts: _Checkout;
+      checkouts: _Checkout[];
     };
   };
 }
@@ -6237,7 +6237,7 @@ export namespace DraftOrder {
       updated_at_min?: string;
     };
     response: {
-      draft_orders: _DraftOrder;
+      draft_orders: _DraftOrder[];
     };
   };
 }
@@ -6490,7 +6490,7 @@ export namespace Order {
       updated_at_min?: string;
     };
     response: {
-      orders: _Order;
+      orders: _Order[];
     };
   };
 }
@@ -6547,7 +6547,7 @@ export namespace OrderRisk {
     path: `orders/${OrderId}/risks`;
     method: Method.Get;
     response: {
-      risks: _Risk;
+      risks: _Risk[];
     };
   };
 }
@@ -6653,7 +6653,7 @@ export namespace Refund {
       limit?: string;
     };
     response: {
-      refunds: _Refund;
+      refunds: _Refund[];
     };
   };
 }
@@ -6733,7 +6733,7 @@ export namespace Transaction {
       since_id?: string;
     };
     response: {
-      transactions: _Transaction;
+      transactions: _Transaction[];
     };
   };
 }
@@ -6814,7 +6814,7 @@ export namespace GiftCard {
       status?: string;
     };
     response: {
-      gift_cards: _GiftCard;
+      gift_cards: _GiftCard[];
     };
   };
 
@@ -6878,7 +6878,7 @@ export namespace User {
       page_info?: string;
     };
     response: {
-      users: _User;
+      users: _User[];
     };
   };
 }
@@ -6938,7 +6938,7 @@ export namespace Collect {
       since_id?: string;
     };
     response: {
-      collects: _Collect;
+      collects: _Collect[];
     };
   };
 }
@@ -7081,7 +7081,7 @@ export namespace CustomCollection {
       updated_at_min?: string;
     };
     response: {
-      custom_collections: _CustomCollection;
+      custom_collections: _CustomCollection[];
     };
   };
 }
@@ -7213,7 +7213,7 @@ export namespace Product {
       vendor?: string;
     };
     response: {
-      products: _Product;
+      products: _Product[];
     };
   };
 }
@@ -7286,7 +7286,7 @@ export namespace ProductImage {
       since_id?: string;
     };
     response: {
-      images: _Image;
+      images: _Image[];
     };
   };
 }
@@ -7365,7 +7365,7 @@ export namespace ProductVariant {
       since_id?: string;
     };
     response: {
-      variants: _Variant;
+      variants: _Variant[];
     };
   };
 }
@@ -7491,7 +7491,7 @@ export namespace SmartCollection {
       updated_at_min?: string;
     };
     response: {
-      smart_collections: _Collection;
+      smart_collections: _Collection[];
     };
   };
 }
@@ -7644,7 +7644,7 @@ export namespace CollectionListing {
       limit?: string;
     };
     response: {
-      collection_listings: _CollectionListing;
+      collection_listings: _CollectionListing[];
     };
   };
 
@@ -7708,7 +7708,7 @@ export namespace MobilePlatformApplication {
     path: `mobile_platform_applications`;
     method: Method.Get;
     response: {
-      mobile_platform_applications: _MobilePlatformApplication;
+      mobile_platform_applications: _MobilePlatformApplication[];
     };
   };
 }
@@ -7760,7 +7760,7 @@ export namespace Payment {
     path: `checkouts/${Token}/payments`;
     method: Method.Get;
     response: {
-      payments: _Payment;
+      payments: _Payment[];
     };
   };
 }
@@ -7792,7 +7792,7 @@ export namespace ProductResourceFeedback {
       product_id?: string;
     };
     response: {
-      resource_feedback: _ResourceFeedback;
+      resource_feedback: _ResourceFeedback[];
     };
   };
 }
@@ -7868,7 +7868,7 @@ export namespace ProductListing {
       updated_at_min?: string;
     };
     response: {
-      product_listings: _ProductListing;
+      product_listings: _ProductListing[];
     };
   };
 
@@ -7918,7 +7918,7 @@ export namespace ResourceFeedback {
     path: `resource_feedback`;
     method: Method.Get;
     response: {
-      resource_feedback: _ResourceFeedback;
+      resource_feedback: _ResourceFeedback[];
     };
   };
 }
@@ -7935,7 +7935,7 @@ export namespace AssignedFulfillmentOrder {
       location_ids?: string;
     };
     response: {
-      fulfillment_orders: _FulfillmentOrder;
+      fulfillment_orders: _FulfillmentOrder[];
     };
   };
 }
@@ -8037,7 +8037,7 @@ export namespace CarrierService {
     path: `carrier_services`;
     method: Method.Get;
     response: {
-      carrier_services: _CarrierService;
+      carrier_services: _CarrierService[];
     };
   };
 }
@@ -8195,7 +8195,7 @@ export namespace Fulfillment {
       updated_at_min?: string;
     };
     response: {
-      fulfillments: _Fulfillment;
+      fulfillments: _Fulfillment[];
     };
   };
 
@@ -8256,7 +8256,7 @@ export namespace FulfillmentEvent {
       order_id?: string;
     };
     response: {
-      fulfillment_events: _FulfillmentEvent;
+      fulfillment_events: _FulfillmentEvent[];
     };
   };
 }
@@ -8379,7 +8379,7 @@ export namespace FulfillmentOrder {
       order_id?: string;
     };
     response: {
-      fulfillment_orders: _FulfillmentOrder;
+      fulfillment_orders: _FulfillmentOrder[];
     };
   };
 }
@@ -8496,7 +8496,7 @@ export namespace FulfillmentService {
       scope?: string;
     };
     response: {
-      fulfillment_services: _FulfillmentService;
+      fulfillment_services: _FulfillmentService[];
     };
   };
 }
@@ -8512,7 +8512,7 @@ export namespace LocationsForMove {
       fulfillment_order_id?: string;
     };
     response: {
-      locations_for_move: _LocationsForMove;
+      locations_for_move: _LocationsForMove[];
     };
   };
 }
@@ -8523,7 +8523,7 @@ export namespace Balance {
     path: `shopify_payments/balance`;
     method: Method.Get;
     response: {
-      balance: _Balance;
+      balance: _Balance[];
     };
   };
 }
@@ -8555,7 +8555,7 @@ export namespace Dispute {
       status?: string;
     };
     response: {
-      disputes: _Dispute;
+      disputes: _Dispute[];
     };
   };
 }
@@ -8591,7 +8591,7 @@ export namespace Payouts {
       status?: string;
     };
     response: {
-      payouts: _Payout;
+      payouts: _Payout[];
     };
   };
 }
@@ -8667,7 +8667,7 @@ export namespace Country {
       since_id?: string;
     };
     response: {
-      countries: _Country;
+      countries: _Country[];
     };
   };
 }
@@ -8678,7 +8678,7 @@ export namespace Currency {
     path: `currencies`;
     method: Method.Get;
     response: {
-      currencies: _Currency;
+      currencies: _Currency[];
     };
   };
 }
@@ -8689,7 +8689,7 @@ export namespace Policy {
     path: `policies`;
     method: Method.Get;
     response: {
-      policies: _Policy;
+      policies: _Policy[];
     };
   };
 }
@@ -8744,7 +8744,7 @@ export namespace Province {
       since_id?: string;
     };
     response: {
-      provinces: _Province;
+      provinces: _Province[];
     };
   };
 }
@@ -8759,7 +8759,7 @@ export namespace ShippingZone {
       fields?: string;
     };
     response: {
-      shipping_zones: _ShippingZone;
+      shipping_zones: _ShippingZone[];
     };
   };
 }
@@ -8774,7 +8774,7 @@ export namespace Shop {
       fields?: string;
     };
     response: {
-      shop: _Shop;
+      shop: _Shop[];
     };
   };
 }
@@ -8799,7 +8799,7 @@ export namespace TenderTransaction {
       since_id?: string;
     };
     response: {
-      tender_transactions: _TenderTransaction;
+      tender_transactions: _TenderTransaction[];
     };
   };
 }
