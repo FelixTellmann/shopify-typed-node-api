@@ -8774,7 +8774,7 @@ export namespace Shop {
       fields?: string;
     };
     response: {
-      shop: _Shop[];
+      shop: _Shop;
     };
   };
 }
