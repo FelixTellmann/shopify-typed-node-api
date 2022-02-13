@@ -5337,6 +5337,20 @@ export namespace Asset {
       assets: _Asset[];
     };
   };
+
+  export type GetById = {
+    path: `themes/${ThemeId}/assets`;
+    method: Method.Get;
+    query: {
+      /** Retrieves a single asset for a theme by specifying the asset's key.  */
+      "asset[key]": string;
+      /** Specify which fields to show using a comma-separated list of field names. */
+      fields?: string;
+    };
+    response: {
+      asset: _Asset;
+    };
+  };
 }
 
 export namespace Blog {
