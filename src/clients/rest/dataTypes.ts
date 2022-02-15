@@ -705,6 +705,8 @@ export type _Asset = {
   value?: string;
   /** A base64-encoded image.  */
   attachment?: string;
+
+  warnings?: string[]
 };
 
 export type _Theme = {
