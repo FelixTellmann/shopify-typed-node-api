@@ -87,7 +87,7 @@
       <textMaps />
     </LinkMapSettings>
   </component>
-  <component name="ProjectRootManager">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>

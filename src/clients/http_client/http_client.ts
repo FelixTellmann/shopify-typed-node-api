@@ -9,13 +9,14 @@ import * as ShopifyErrors from '../../error';
 import {SHOPIFY_API_LIBRARY_VERSION} from '../../version';
 import validateShop from '../../utils/shop-validator';
 import {Context} from '../../context';
+import ProcessedQuery from '../../utils/processed-query';
 
 import {
   DataType,
+  DeleteRequestParams,
   GetRequestParams,
   PostRequestParams,
   PutRequestParams,
-  DeleteRequestParams,
   RequestParams,
   RequestReturn,
 } from './types';
@@ -25,7 +26,7 @@ class HttpClient {
   static readonly RETRY_WAIT_TIME = 1000;
   // 5 minutes
   static readonly DEPRECATION_ALERT_DELAY = 300000;
-  private LOGGED_DEPRECATIONS: Record<string, number> = {};
+  private LOGGED_DEPRECATIONS: {[key: string]: number} = {};
 
   public constructor(private domain: string) {
     if (!validateShop(domain)) {
@@ -38,32 +39,42 @@ class HttpClient {
   /**
    * Performs a GET request on the given path.
    */
-  public async get<T = unknown>(params: GetRequestParams<T>): Promise<RequestReturn<T>> {
+  public async get<T = unknown>(
+    params: GetRequestParams<T>,
+  ): Promise<RequestReturn<T>> {
     return this.request({method: Method.Get, ...params});
   }
 
   /**
    * Performs a POST request on the given path.
    */
-  public async post<T = unknown>(params: PostRequestParams<T>): Promise<RequestReturn<T>> {
+  public async post<T = unknown>(
+    params: PostRequestParams<T>,
+  ): Promise<RequestReturn<T>> {
     return this.request({method: Method.Post, ...params});
   }
 
   /**
    * Performs a PUT request on the given path.
    */
-  public async put<T = unknown>(params: PutRequestParams<T>): Promise<RequestReturn<T>> {
+  public async put<T = unknown>(
+    params: PutRequestParams<T>,
+  ): Promise<RequestReturn<T>> {
     return this.request({method: Method.Put, ...params});
   }
 
   /**
    * Performs a DELETE request on the given path.
    */
-  public async delete<T = unknown>(params: DeleteRequestParams<T>): Promise<RequestReturn<T>> {
+  public async delete<T = unknown>(
+    params: DeleteRequestParams<T>,
+  ): Promise<RequestReturn<T>> {
     return this.request({method: Method.Delete, ...params});
   }
 
-  protected async request<T = unknown>(params: RequestParams<T>): Promise<RequestReturn<T>> {
+  protected async request<T = unknown>(
+    params: RequestParams<T>,
+  ): Promise<RequestReturn<T>> {
     const maxTries = params.tries ? params.tries : 1;
     if (maxTries <= 0) {
       throw new ShopifyErrors.HttpRequestError(
@@ -116,11 +127,9 @@ class HttpClient {
       }
     }
 
-    const queryString = params.query
-      ? `?${querystring.stringify(params.query as ParsedUrlQueryInput)}`
-      : '';
-
-    const url = `https://${this.domain}${params.path}${queryString}`;
+    const url = `https://${this.domain}${this.getRequestPath(
+      params.path,
+    )}${ProcessedQuery.stringify(params.query)}`;
     const options: RequestInit = {
       method: params.method.toString(),
       headers,
@@ -143,9 +152,9 @@ class HttpClient {
             let waitTime = HttpClient.RETRY_WAIT_TIME;
             if (
               error instanceof ShopifyErrors.HttpThrottlingError &&
-              error.retryAfter
+              error.response.retryAfter
             ) {
-              waitTime = error.retryAfter * 1000;
+              waitTime = error.response.retryAfter * 1000;
             }
             await sleep(waitTime);
             continue;
@@ -169,6 +178,10 @@ class HttpClient {
     throw new ShopifyErrors.ShopifyError(
       `Unexpected flow, reached maximum HTTP tries but did not throw an error`,
     );
+  }
+
+  protected getRequestPath(path: string): string {
+    return `/${path.replace(/^\//, '')}`;
   }
 
   private async doRequest<T = unknown>(
@@ -236,24 +249,38 @@ class HttpClient {
           const errorMessage = errorMessages.length
             ? `:\n${errorMessages.join('\n')}`
             : '';
+          const headers = response.headers.raw();
+          const code = response.status;
+          const statusText = response.statusText;
+
           switch (true) {
             case response.status === StatusCode.TooManyRequests: {
               const retryAfter = response.headers.get('Retry-After');
-              throw new ShopifyErrors.HttpThrottlingError(
-                `Shopify is throttling requests${errorMessage}`,
-                retryAfter ? parseFloat(retryAfter) : undefined,
-              );
+              throw new ShopifyErrors.HttpThrottlingError({
+                message: `Shopify is throttling requests${errorMessage}`,
+                code,
+                statusText,
+                body,
+                headers,
+                retryAfter: retryAfter ? parseFloat(retryAfter) : undefined,
+              });
             }
             case response.status >= StatusCode.InternalServerError:
-              throw new ShopifyErrors.HttpInternalError(
-                `Shopify internal error${errorMessage}`,
-              );
+              throw new ShopifyErrors.HttpInternalError({
+                message: `Shopify internal error${errorMessage}`,
+                code,
+                statusText,
+                body,
+                headers,
+              });
             default:
-              throw new ShopifyErrors.HttpResponseError(
-                `Received an error response (${response.status} ${response.statusText}) from Shopify${errorMessage}`,
-                response.status,
-                response.statusText,
-              );
+              throw new ShopifyErrors.HttpResponseError({
+                message: `Received an error response (${response.status} ${response.statusText}) from Shopify${errorMessage}`,
+                code,
+                statusText,
+                body,
+                headers,
+              });
           }
         }
       })

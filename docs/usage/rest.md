@@ -14,7 +14,7 @@ The `RestClient` offers the 4 core request methods: `get`, `delete`, `post`, and
 **`GetRequestParams` / `DeleteRequestParams`:**
 | Parameter | Type | Required? | Default Value | Notes |
 | -------------- | ----------------------------------- | :-------: | :-----------: | ---------------------------------------------------------------------------------------- |
-| `path` | `string` | True | none | The requested API endpoint path |
+| `path` | `string` | True | none | The requested API endpoint path. This can be one of two formats:<ul><li>The path starting after the `/admin/api/{version}/` prefix, such as `'products'`, which executes `/admin/api/{version}/products.json`</li><li>The full path, such as `/admin/oauth/access_scopes.json`</li></ul> |
 | `data` | `Record<string, unknown> \| string` | False | none | The body of the request |
 | `type` | `DataType` | False | none | The type of data being sent in the body of the request (`JSON`, `GraphQL`, `URLEncoded`) |
 | `query` | `Record<string, string \| number>` | False | none | An optional query object to be appended to the request |
@@ -29,7 +29,7 @@ The `RestClient` offers the 4 core request methods: `get`, `delete`, `post`, and
 **`PostRequestParams` / `PutRequestParams`:**
 | Parameter | Type | Required? | Default Value | Notes |
 | -------------- | ----------------------------------- | :-------: | :-----------: | ---------------------------------------------------------------------------------------- |
-| `path` | `string` | True | none | The requested API endpoint path |
+| `path` | `string` | True | none | The requested API endpoint path. This can be one of two formats:<ul><li>The path starting after the `/admin/api/{version}/` prefix, such as `'products'`, which executes `/admin/api/{version}/products.json`</li><li>The full path, such as `/admin/oauth/access_scopes.json`</li></ul> |
 | `data` | `Record<string, unknown> \| string` | True | none | The body of the request |
 | `type` | `DataType` | True | none | The type of data being sent in the body of the request (`JSON`, `GraphQL`, `URLEncoded`) |
 | `query` | `Record<string, string \| number>` | False | none | An optional query object to be appended to the request |
@@ -72,6 +72,80 @@ await client.post({
   data: body,
   type: DataType.JSON,
 });
+```
+
+## With TypeScript
+
+We can optionally utilize the TypeScript types to get static type validation during 
+development.
+
+### Perform a `GET` request:
+
+```ts
+import { Product } from "shopify-node-api/dist/clients/rest/request_types";
+
+const client = new Shopify.Clients.Rest(session.shop, session.accessToken);
+
+const products = client.get<Product.Get>({
+  path: "products",
+  query: {
+    limit: "250",
+  },
+});
+
+const singleProduct = client.get<Product.GetById>({
+  path: "products/1234567890",
+  query: {
+    fields: "variants,handle",
+  },
+});
+
+// do something with the returned data
+```
+
+### Perform a `POST` request:
+
+```ts
+import { Product } from "shopify-node-api/dist/clients/rest/request_types";
+
+const client = new Shopify.Clients.Rest(session.shop, session.accessToken);
+
+const newProduct = await client.post<Product.Create>({
+  path: "products",
+  data: {
+    product: {
+      title: "My new product",
+    },
+  },
+  type: DataType.JSON
+})
+```
+
+
+### Optional use with only return Types
+
+All return types are prefixed with `_` to avoid namespace collision.
+
+```ts
+import { _Product } from "shopify-node-api/dist/clients/rest/request_types";
+
+const client = new Shopify.Clients.Rest(session.shop, session.accessToken);
+
+const products: { products: _Product } = client.get({
+  path: "products",
+  query: {
+    limit: "250",
+  },
+});
+
+const singleProduct: { product: _Product } = client.get({
+  path: "products/1234567890",
+  query: {
+    fields: "variants,handle",
+  },
+});
+
+// do something with the returned data
 ```
 
 _for more information on the `products` endpoint, [check out our API reference guide](https://shopify.dev/docs/admin-api/rest/reference/products/product#create-2021-01)._
