@@ -9,8 +9,8 @@ import * as ShopifyErrors from '../error';
  * @param strB any string, array of strings, or object with string values
  */
 export default function safeCompare(
-  strA: string | {[key: string]: string} | string[] | number[],
-  strB: string | {[key: string]: string} | string[] | number[],
+  strA: string | {[key: string]: string;} | string[] | number[],
+  strB: string | {[key: string]: string;} | string[] | number[],
 ): boolean {
   if (typeof strA === typeof strB) {
     let buffA: Buffer;
@@ -20,7 +20,11 @@ export default function safeCompare(
       buffA = Buffer.from(JSON.stringify(strA));
       buffB = Buffer.from(JSON.stringify(strB));
     } else {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       buffA = Buffer.from(strA);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       buffB = Buffer.from(strB);
     }
 
