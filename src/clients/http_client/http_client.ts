@@ -12,6 +12,7 @@ import {Context} from '../../context';
 import ProcessedQuery from '../../utils/processed-query';
 
 import {
+  DataType,
   DeleteRequestParams,
   GetRequestParams,
   PostRequestParams,
@@ -25,7 +26,7 @@ class HttpClient {
   static readonly RETRY_WAIT_TIME = 1000;
   // 5 minutes
   static readonly DEPRECATION_ALERT_DELAY = 300000;
-  private LOGGED_DEPRECATIONS: {[key: string]: number;} = {};
+  private LOGGED_DEPRECATIONS: {[key: string]: number} = {};
 
   public constructor(private domain: string) {
     if (!validateShop(domain)) {
@@ -105,16 +106,16 @@ class HttpClient {
       const {type, data} = params as PostRequestParams<T>;
       if (data) {
         switch (type) {
-          case 'application/json':
+          case DataType.JSON:
             body = typeof data === 'string' ? data : JSON.stringify(data);
             break;
-          case 'application/x-www-form-urlencoded':
+          case DataType.URLEncoded:
             body =
               typeof data === 'string'
                 ? data
                 : querystring.stringify(data as ParsedUrlQueryInput);
             break;
-          case 'application/graphql':
+          case DataType.GraphQL:
             body = data as string;
             break;
         }
