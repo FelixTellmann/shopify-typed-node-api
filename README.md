@@ -1,9 +1,9 @@
-# `@shopify/shopify-api`
+# `shopify-typed-node-api`
 
 <!-- ![Build Status]() -->
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md)
-[![npm version](https://badge.fury.io/js/%40shopify%2Fshopify-api.svg)](https://badge.fury.io/js/%40shopify%2Fshopify-api)
+[![npm version](https://badge.fury.io/js/shopify-typed-node-api.svg)](https://badge.fury.io/js/shopify-typed-node-api)
 
 This library provides support for TypeScript/JavaScript [Shopify](https://www.shopify.com) apps to access the [Shopify Admin API](https://shopify.dev/docs/admin-api), by making it easier to perform the following actions:
 
