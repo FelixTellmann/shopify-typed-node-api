@@ -1,10 +1,19 @@
 {
   "name": "shopify-typed-node-api",
-  "version": "2.0.19",
+  "version": "2.0.20",
   "description": "Shopify API Typescript Library for Node - accelerate development with support for authentication, graphql proxy, webhooks",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "prettier": "@shopify/prettier-config",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FelixTellmann/shopify-typed-node-api.git"
+  },
+  "author": {
+    "name": "Felix Tellmann",
+    "email": "hello@flext.dev",
+    "url": "https://flext.dev"
+  },
   "scripts": {
     "test": "jest",
     "build": "tsc",
