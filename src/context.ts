@@ -31,12 +31,13 @@ const Context: ContextInterface = {
   API_SECRET_KEY: '',
   SCOPES: new AuthScopes([]),
   HOST_NAME: '',
-  API_VERSION: ApiVersion.Unstable,
+  API_VERSION: ApiVersion.January23,
   IS_EMBEDDED_APP: true,
   IS_PRIVATE_APP: false,
   SESSION_STORAGE: new MemorySessionStorage(),
 
   initialize(params: ContextParams): void {
+    console.log({version: this.API_VERSION})
     let scopes: AuthScopes;
     if (params.SCOPES instanceof AuthScopes) {
       scopes = params.SCOPES;
