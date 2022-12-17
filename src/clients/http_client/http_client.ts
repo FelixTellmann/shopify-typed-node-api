@@ -2,7 +2,6 @@ import querystring, {ParsedUrlQueryInput} from 'querystring';
 import crypto from 'crypto';
 import fs from 'fs';
 
-import fetch, {RequestInit, Response} from 'node-fetch';
 import {Method, StatusCode} from '@shopify/network';
 
 import * as ShopifyErrors from '../../error';
@@ -189,7 +188,7 @@ class HttpClient {
     options: RequestInit,
   ): Promise<RequestReturn<T>> {
     return fetch(url, options)
-      .then(async (response: Response) => {
+      .then(async (response) => {
         const body = await response.json();
 
         if (response.ok) {
@@ -249,7 +248,12 @@ class HttpClient {
           const errorMessage = errorMessages.length
             ? `:\n${errorMessages.join('\n')}`
             : '';
-          const headers = response.headers.raw();
+
+          const headers: {[T:string]: unknown} = {};
+          response.headers.forEach((value: string, key: string) => {
+            headers[key] = value
+          })
+
           const code = response.status;
           const statusText = response.statusText;
 

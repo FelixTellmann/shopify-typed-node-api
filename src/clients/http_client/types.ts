@@ -1,5 +1,5 @@
 import {Method} from '@shopify/network';
-import {Headers} from 'node-fetch';
+
 
 export interface HeaderParams {
   [key: string]: string | number;
