@@ -83,6 +83,7 @@ class RestClient extends HttpClient {
 
   protected getRequestPath(path: string): string {
     const cleanPath = super.getRequestPath(path);
+    console.log({version: Context.API_VERSION})
     if (cleanPath.startsWith('/admin')) {
       return `${cleanPath.replace(/\.json$/, '')}.json`;
     } else {

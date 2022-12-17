@@ -37,7 +37,7 @@ const Context: ContextInterface = {
   SESSION_STORAGE: new MemorySessionStorage(),
 
   initialize(params: ContextParams): void {
-    console.log({version: this.API_VERSION})
+
     let scopes: AuthScopes;
     if (params.SCOPES instanceof AuthScopes) {
       scopes = params.SCOPES;
